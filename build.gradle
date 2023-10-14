@@ -37,7 +37,7 @@ tasks.named('test') {
 
 bootJar{
     archivesBaseName = 'BE'
-    archivesBaseName = 'application.jar'
+    archivesBaseName = 'application'
     archiveVersion = "0.0.1"
 }
 
