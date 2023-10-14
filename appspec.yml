@@ -3,18 +3,25 @@ os: linux
 
 files:
   - source:  /
-    destination: /home/ubuntu/plan-assistant
+    destination: /home/ubuntu/BE
     overwrite: yes
 
 permissions:
   - object: /
+    pattern: "*"
     owner: ubuntu
     group: ubuntu
 
 hooks:
+#  Install:
+#    - location: scripts/install.sh
+#      timeout: 120
+#      runas: root
   AfterInstall:
     - location: scripts/stop.sh
       timeout: 60
+      runas: root
   ApplicationStart:
     - location: scripts/start.sh
       timeout: 60
+      runas: root
