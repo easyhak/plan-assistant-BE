@@ -1,0 +1,12 @@
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/plan_assistant
+#    username: root
+#    password: admin
