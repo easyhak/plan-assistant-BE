@@ -1,12 +1,11 @@
 package com.example.planassistant.domain;
 
-
 import java.time.LocalDateTime;
 
-public class Todo {
+public class Plan {
     private Long id;
-    private String content;
     private String place;
-    private LocalDateTime endDate;
-
+    private String content;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 }
