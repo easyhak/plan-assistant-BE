@@ -36,22 +36,15 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 
     }
 
-    @ExceptionHandler(MemberNotFoundException.class)
-    public final ResponseEntity<ErrorDetails> handleMemberNotFoundException(Exception ex, WebRequest request) throws MemberNotFoundException {
+    @ExceptionHandler(NoSuchElementException.class)
+    public final ResponseEntity<ErrorDetails> handleNoSuchElementException(NoSuchElementException ex, WebRequest request) throws NoSuchElementException {
         ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(),
-                ex.getMessage() + "member를 찾을 수 없습니다.",
+                ex.getErrorMessage() + "| cannot find element",
                 request.getDescription(false)
         );
-        return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.NOT_FOUND);
     }
-//    @ExceptionHandler(UserNotFoundException.class)
-//    public final ResponseEntity<ErrorDetails> handleUserNotFoundException(Exception ex, WebRequest request) throws Exception {
-//        ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(),
-//                ex.getMessage(), request.getDescription(false));
-//
-//        return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.NOT_FOUND);
-//
-//    }
+
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
