@@ -28,10 +28,13 @@ public class TodoService {
         log.info("todo의 정보: " + todoReqDto.toString());
         var member = memberRepository.findById(memberId)
                 .orElseThrow(()->new NoSuchElementException("cannot find member"));
+        
+
         var todo = Todo.builder()
                 .priority(todoReqDto.getPriority())
                 .place(todoReqDto.getPlace())
                 .deadline(todoReqDto.getDeadline())
+                .content(todoReqDto.getContent())
                 .latitude(todoReqDto.getLongitude())
                 .longitude(todoReqDto.getLongitude())
                 .member(member)
@@ -59,6 +62,9 @@ public class TodoService {
     public TodoResDto getTodo(Long todoId){
         var todo =todoRepository.findById(todoId).orElseThrow(
                 ()->new NoSuchElementException("cannot find todo"));
+
+
+        
         return new TodoResDto(todo);
     }
 

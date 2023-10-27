@@ -3,10 +3,14 @@ package com.example.planassistant.domain;
 
 import com.example.planassistant.common.BaseTimeEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,7 +25,10 @@ public class Todo extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, columnDefinition = "varChar(255) default ''")
     private String place;
+
+    @Column(nullable = false, columnDefinition = "varChar(255) default ''")
     private String content;
     private Integer priority;
 
@@ -42,5 +49,9 @@ public class Todo extends BaseTimeEntity {
         this.member = member;
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }
