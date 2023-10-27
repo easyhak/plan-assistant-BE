@@ -35,6 +35,15 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
+
+    @ExceptionHandler(MemberNotFoundException.class)
+    public final ResponseEntity<ErrorDetails> handleMemberNotFoundException(Exception ex, WebRequest request) throws MemberNotFoundException {
+        ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(),
+                ex.getMessage() + "member를 찾을 수 없습니다.",
+                request.getDescription(false)
+        );
+        return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 //    @ExceptionHandler(UserNotFoundException.class)
 //    public final ResponseEntity<ErrorDetails> handleUserNotFoundException(Exception ex, WebRequest request) throws Exception {
 //        ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(),
@@ -50,8 +59,6 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 
         ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(),
                 "Total Errors:" + ex.getErrorCount() + " First Error:" + ex.getFieldError().getDefaultMessage(), request.getDescription(false));
-
-
 
         return new ResponseEntity(errorDetails, HttpStatus.BAD_REQUEST);
     }
