@@ -17,5 +17,4 @@ public class TodoReqDto {
     private LocalDateTime deadline;
     private String latitude;
     private String longitude;
-
 }

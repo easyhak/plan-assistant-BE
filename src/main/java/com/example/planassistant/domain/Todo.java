@@ -5,10 +5,7 @@ import com.example.planassistant.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
@@ -18,6 +15,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 // 1:N 매핑
 public class Todo extends BaseTimeEntity {
@@ -36,6 +34,7 @@ public class Todo extends BaseTimeEntity {
 
     private String latitude;
     private String longitude;
+    private Boolean complete;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -51,7 +50,11 @@ public class Todo extends BaseTimeEntity {
         this.longitude = longitude;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    @PrePersist
+    public void insertTodo(){
+        this.complete = this.complete == null ? false : this.complete;
+    }
+    public void setComplete(Boolean complete){
+        this.complete = complete;
     }
 }

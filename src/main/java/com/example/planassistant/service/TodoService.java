@@ -68,8 +68,41 @@ public class TodoService {
         return new TodoResDto(todo);
     }
 
+    @Transactional
     public void deleteTodo(Long id) {
 
         todoRepository.deleteById(id);
+    }
+
+    @Transactional
+    public Boolean changeComplete(Long id){
+        var todo =todoRepository.findById(id).orElseThrow(
+                ()-> new NoSuchElementException("cannot find todo")
+        );
+        // todo 가 true면 false로 변경
+        if (todo.getComplete() == false){
+            todo.setComplete(true);
+        }
+        // todo 가 false면 true로 변경
+        else {
+            todo.setComplete(false);
+        }
+
+        return todo.getComplete();
+    }
+
+    @Transactional
+    public TodoResDto changeTodo(Long id, TodoReqDto todoReqDto){
+        var todo =todoRepository.findById(id).orElseThrow(
+                ()-> new NoSuchElementException("cannot find todo")
+        );
+        todo.setContent(todoReqDto.getContent());
+        todo.setLatitude(todoReqDto.getLatitude());
+        todo.setPriority(todoReqDto.getPriority());
+        todo.setLongitude(todoReqDto.getLongitude());
+        todo.setPlace(todoReqDto.getPlace());
+        todo.setDeadline(todoReqDto.getDeadline());
+
+        return new TodoResDto(todo);
     }
 }

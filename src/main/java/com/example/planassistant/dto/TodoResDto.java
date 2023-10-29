@@ -13,7 +13,7 @@ public class TodoResDto {
     private Integer priority;
     private LocalDateTime deadline;
     private LocalDateTime updateDate;
-
+    private Boolean complete;
     public TodoResDto(Todo todo){
         this.id = todo.getId();
         this.place = todo.getPlace();
@@ -21,6 +21,7 @@ public class TodoResDto {
         this.deadline = todo.getDeadline();
         this.updateDate = todo.getUpdateDate();
         this.content = todo.getContent();
+        this.complete = todo.getComplete();
     }
 }
 

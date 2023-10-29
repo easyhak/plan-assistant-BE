@@ -32,13 +32,23 @@ public class TodoController extends CommonController {
         var res = todoService.getAllTodo((user.getUsername()));
         return OkReturn(res);
     }
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity getTodo(@AuthenticationPrincipal User user, @PathVariable Long id){
         return OkReturn(todoService.getTodo(id));
     }
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity deleteTodo(@PathVariable Long id){
         todoService.deleteTodo(id);
         return OkReturn("deleted");
+    }
+    @PatchMapping("/{id}")
+    public ResponseEntity changeTodoComplete(@PathVariable Long id){
+
+        return AcceptedReturn(todoService.changeComplete(id));
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity changeTodo(@PathVariable Long id, @RequestBody TodoReqDto todoReqDto){
+        log.info(todoReqDto.toString());
+        return AcceptedReturn(todoService.changeTodo(id, todoReqDto));
     }
 }
