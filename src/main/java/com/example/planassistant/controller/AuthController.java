@@ -5,6 +5,7 @@ import com.example.planassistant.dto.MemberResponseDto;
 import com.example.planassistant.dto.TokenDto;
 import com.example.planassistant.dto.TokenRequestDto;
 import com.example.planassistant.service.AuthService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@Tag(name = "Auth", description = "Auth 관련 API")
 public class AuthController {
     private final AuthService authService;
 

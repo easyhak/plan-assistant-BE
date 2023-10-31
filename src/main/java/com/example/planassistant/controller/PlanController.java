@@ -3,6 +3,7 @@ package com.example.planassistant.controller;
 import com.example.planassistant.common.CommonController;
 import com.example.planassistant.dto.PlanReqDto;
 import com.example.planassistant.service.PlanService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/plan")
 @RequiredArgsConstructor
 @Slf4j
+@Tag(name = "Plan", description = "Plan 관련 API")
 public class PlanController extends CommonController {
 
     private final PlanService planService;
