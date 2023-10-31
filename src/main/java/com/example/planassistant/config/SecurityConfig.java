@@ -14,15 +14,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 @EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class SecurityConfig{
     private final TokenProvider tokenProvider;
     private final CorsFilter corsFilter;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -36,7 +33,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
 
         // CSRF 설정 Disable
         http.csrf().disable()
@@ -62,6 +58,10 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/hello").permitAll()
+                // swagger는 permit all
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+
                 .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
 
                 // JwtFilter 를 addFilterBefore 로 등록했던 JwtSecurityConfig 클래스를 적용
