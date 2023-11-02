@@ -11,6 +11,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -67,5 +68,17 @@ public class PlanService {
         );
         planRepository.delete(plan);
         return "plan deleted";
+    }
+
+
+    // 현재 날짜에 addDate한 날짜까지의 plan을 가져온다.
+    @Transactional(readOnly = true)
+    public List<Plan> getPlansByDate(String memberId, Integer addDate){
+        var member = memberRepository.findById(memberId)
+                .orElseThrow(()-> new NoSuchElementException("member not fount"));
+        var nowDate = LocalDate.now();
+        var plusDate = nowDate.plusDays(addDate);
+        var plans = planRepository.findPlanByMemberAndStartTimeBetween(member, nowDate, plusDate);
+        return plans;
     }
 }
