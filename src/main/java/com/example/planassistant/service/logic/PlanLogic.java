@@ -9,6 +9,7 @@ import com.example.planassistant.repository.PlanRepository;
 import com.example.planassistant.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class PlanLogic {
     private final PlanRepository planRepository;
     private final TodoRepository todoRepository;
     // 날짜 간격으로 Plan 가져오기
+
     private List<Plan> getPlansByDate(String memberId, Integer addDate){
         var member = memberRepository.findById(memberId)
                 .orElseThrow(()-> new NoSuchElementException("member not fount"));
@@ -31,13 +33,14 @@ public class PlanLogic {
         var plans = planRepository.findPlanByMemberAndStartTimeBetween(member, nowDate, plusDate);
         return plans;
     }
+
     // 모든 Todo 가져오기
     private List<Todo> getAllTodos(){
         var todos = todoRepository.findAll();
         return todos;
     }
     // 거리 계산 함수
-    public static ArrayList<Long> calculateDistance(){
+    private ArrayList<Long> calculateDistance(){
 
         return null;
     }
