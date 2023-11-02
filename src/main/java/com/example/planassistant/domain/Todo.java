@@ -3,13 +3,7 @@ package com.example.planassistant.domain;
 
 import com.example.planassistant.common.BaseTimeEntity;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-import org.springframework.boot.context.properties.bind.DefaultValue;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 

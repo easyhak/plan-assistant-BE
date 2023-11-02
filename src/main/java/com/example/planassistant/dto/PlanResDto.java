@@ -1,6 +1,7 @@
 package com.example.planassistant.dto;
 
 import com.example.planassistant.domain.Plan;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -15,7 +16,9 @@ public class PlanResDto {
     private String latitude;
     private String longitude;
     private String content;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
 
     public PlanResDto(Plan plan) {

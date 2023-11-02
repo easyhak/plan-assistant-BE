@@ -34,7 +34,7 @@ public class TodoController extends CommonController {
     private final TodoService todoService;
 
     @PostMapping()
-    @Operation(summary = "todo 생성", description = "todo를 생성 줍니다.")
+    @Operation(summary = "todo 생성", description = "todo를 생성 해줍니다.")
     @ApiResponse(responseCode = "201", description = "todo 생성 성공", content = @Content(schema = @Schema(implementation = TodoReqDto.class)))
     public ResponseEntity makeTodo(@AuthenticationPrincipal User user, @RequestBody TodoReqDto todoReqDto){
         log.info("todo  " + todoReqDto.toString());
