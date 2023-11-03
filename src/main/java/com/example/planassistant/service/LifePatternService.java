@@ -31,7 +31,8 @@ public class LifePatternService {
         lifePatternRepository.save(lifePattern);
         return "created";
     }
-    // life pattern의 내용을 저장
+
+    // life pattern의 내용을 업데이트
     @Transactional
     public String updateLifePattern(String memberId, LifePatternReqDto dto, Long lifePatternId){
         var member = memberRepository.findById(memberId).orElseThrow(
@@ -40,9 +41,11 @@ public class LifePatternService {
         var lifePattern = lifePatternRepository.findById(lifePatternId).orElseThrow(
                 ()->new java.util.NoSuchElementException("life pattern not found")
         );
+        /* dto 내용으로 변경*/
         lifePattern.setLife(dto.getLife());
-        lifePattern.setEndDateTime(dto.getEndTime());
-        lifePattern.setStartDateTime(dto.getStartTime());
+        lifePattern.setDayOfTheWeek(dto.getDayOfTheWeek());
+        lifePattern.setEndTime(dto.getEndTime());
+        lifePattern.setStartTime(dto.getStartTime());
         return "updated";
     }
 

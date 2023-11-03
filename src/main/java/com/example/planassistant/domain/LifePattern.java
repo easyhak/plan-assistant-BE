@@ -1,5 +1,6 @@
 package com.example.planassistant.domain;
 
+import com.example.planassistant.domain.enumType.DayOfTheWeek;
 import com.example.planassistant.domain.enumType.Life;
 import com.example.planassistant.dto.lifepattern.LifePatternReqDto;
 import jakarta.persistence.*;
@@ -21,9 +22,11 @@ public class LifePattern {
 
     // enum 값으로 입력 받기
     @Enumerated(EnumType.STRING)
-    private Life life; // SLEEPING_TIME, NOT_FOCUS_TIME, WORKING_TIME
-    private LocalTime startDateTime;
-    private LocalTime endDateTime;
+    private Life life; // SLEEPING_TIME, NOT_FOCUS_TIME, WORKING_TIME, FOCUS_TIME
+    @Enumerated(EnumType.STRING)
+    private DayOfTheWeek dayOfTheWeek;
+    private LocalTime startTime;
+    private LocalTime endTime;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -31,28 +34,34 @@ public class LifePattern {
 
     public LifePattern(LifePatternReqDto dto, Member member) {
         this.life = dto.getLife();
-        this.startDateTime = dto.getStartTime();
-        this.endDateTime = dto.getEndTime();
+        this.dayOfTheWeek = dto.getDayOfTheWeek();
+        this.startTime = dto.getStartTime();
+        this.endTime = dto.getEndTime();
         this.member = member;
     }
 
     @Builder
-    public LifePattern(Life life, LocalTime startDateTime, LocalTime endDateTime){
+    public LifePattern(Life life,DayOfTheWeek dayOfTheWeek,LocalTime startDateTime, LocalTime endDateTime){
         this.life = life;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
+        this.dayOfTheWeek = dayOfTheWeek;
+        this.startTime = startDateTime;
+        this.endTime = endDateTime;
     }
 
+    public void setDayOfTheWeek(DayOfTheWeek dayOfTheWeek) {
+        this.dayOfTheWeek = dayOfTheWeek;
+    }
     public void setLife(Life life) {
         this.life = life;
     }
 
-    public void setStartDateTime(LocalTime startDateTime) {
-        this.startDateTime = startDateTime;
+    public void setStartTime(LocalTime startDateTime) {
+        this.startTime = startDateTime;
     }
 
-    public void setEndDateTime(LocalTime endDateTime) {
-        this.endDateTime = endDateTime;
+    public void setEndTime(LocalTime endDateTime) {
+        this.endTime = endDateTime;
     }
+
 }
 
