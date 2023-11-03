@@ -20,8 +20,8 @@ public class Plan {
     private Long id;
     @Column(nullable = false, columnDefinition = "varChar(255) default ''")
     private String place;
-    private String latitude;
-    private String longitude;
+    private Long latitude;
+    private Long longitude;
     @Column(nullable = false, columnDefinition = "varChar(255) default ''")
     private String content;
     private LocalDateTime startTime;
@@ -31,7 +31,7 @@ public class Plan {
     @JoinColumn(name = "member_id")
     private Member member;
     @Builder
-    public Plan(String content, String place, LocalDateTime startTime, LocalDateTime endTime, String latitude, String longitude, Member member) {
+    public Plan(String content, String place, LocalDateTime startTime, LocalDateTime endTime, Long latitude, Long longitude, Member member) {
         this.content = content;
         this.place = place;
         this.startTime = startTime;

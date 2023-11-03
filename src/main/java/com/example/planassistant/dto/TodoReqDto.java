@@ -22,7 +22,7 @@ public class TodoReqDto {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime deadline;
     @Schema(description = "위도")
-    private String latitude;
+    private Long latitude;
     @Schema(description = "경도")
-    private String longitude;
+    private Long longitude;
 }
