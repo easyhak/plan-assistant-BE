@@ -2,13 +2,12 @@ package com.example.planassistant.domain;
 
 import com.example.planassistant.domain.enumType.Life;
 import com.example.planassistant.dto.lifepattern.LifePatternReqDto;
-import com.example.planassistant.dto.lifepattern.LifePatternResDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 // 생활패턴 입력
@@ -17,11 +16,12 @@ import java.time.LocalTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class LifePattern {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     // enum 값으로 입력 받기
     @Enumerated(EnumType.STRING)
-    private Life life; // 수면, 집중 잘되는, 집중 안되는
+    private Life life; // SLEEPING_TIME, NOT_FOCUS_TIME, WORKING_TIME
     private LocalTime startDateTime;
     private LocalTime endDateTime;
 
@@ -36,6 +36,23 @@ public class LifePattern {
         this.member = member;
     }
 
+    @Builder
+    public LifePattern(Life life, LocalTime startDateTime, LocalTime endDateTime){
+        this.life = life;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+    }
 
+    public void setLife(Life life) {
+        this.life = life;
+    }
+
+    public void setStartDateTime(LocalTime startDateTime) {
+        this.startDateTime = startDateTime;
+    }
+
+    public void setEndDateTime(LocalTime endDateTime) {
+        this.endDateTime = endDateTime;
+    }
 }
 
