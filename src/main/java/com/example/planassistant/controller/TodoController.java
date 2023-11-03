@@ -51,19 +51,25 @@ public class TodoController extends CommonController {
         return OkReturn(res);
     }
     @GetMapping("/{id}")
+    @Operation(summary = "Get todo by id", description = "todo를 id로 가져옵니다.")
     public ResponseEntity getTodo(@AuthenticationPrincipal User user, @PathVariable Long id){
         return OkReturn(todoService.getTodo(id));
     }
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete todo by id", description = "todo를 id로 지웁니다")
     public ResponseEntity deleteTodo(@PathVariable Long id){
         todoService.deleteTodo(id);
         return OkReturn("deleted");
     }
+
+    @Operation(summary = "Change todo complete by id", description = "todo의 complete 상태를 수정합니다")
     @PatchMapping("/{id}")
     public ResponseEntity changeTodoComplete(@PathVariable Long id){
 
         return AcceptedReturn(todoService.changeComplete(id));
     }
+
+    @Operation(summary = "Change todo by id", description = "todo의 내용을 수정합니다")
     @PutMapping("/{id}")
     public ResponseEntity changeTodo(@PathVariable Long id, @RequestBody TodoReqDto todoReqDto){
         log.info(todoReqDto.toString());
