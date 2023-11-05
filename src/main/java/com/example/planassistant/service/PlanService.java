@@ -27,8 +27,9 @@ public class PlanService {
         var member = memberRepository.findById(memberId).orElseThrow(
                 ()->new NoSuchElementException("member not found")
         );
-
-        planRepository.save(new Plan(planReqDto, member));
+        var plan = new Plan(planReqDto, member);
+        log.info(plan.getContent(), plan.getPlace());
+        planRepository.save(plan);
     }
 
     @Transactional(readOnly = true)

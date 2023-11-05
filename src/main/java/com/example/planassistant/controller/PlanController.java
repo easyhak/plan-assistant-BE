@@ -29,6 +29,7 @@ public class PlanController extends CommonController {
     @ApiResponse(responseCode = "201", description = "plan 생성 성공", content = @Content(schema = @Schema(implementation = PlanReqDto.class)))
     @PostMapping
     public ResponseEntity makePlan(@AuthenticationPrincipal User user, @RequestBody PlanReqDto planReqDto){
+        log.info(planReqDto.toString());
         planService.makePlan(user.getUsername(), planReqDto);
         return CreatedReturn("created");
     }

@@ -43,15 +43,13 @@ public class Plan {
     }
 
     public Plan(PlanReqDto planReqDto, Member member){
-        Plan.builder()
-            .content(planReqDto.getContent())
-            .place(planReqDto.getPlace())
-            .startTime(planReqDto.getStartTime())
-            .endTime(planReqDto.getEndTime())
-            .member(member)
-            .latitude(planReqDto.getLatitude())
-            .longitude(planReqDto.getLongitude())
-            .build();
+        this.content = planReqDto.getContent();
+        this.member = member;
+        this.endTime = planReqDto.getEndTime();
+        this.startTime = planReqDto.getStartTime();
+        this.latitude = planReqDto.getLatitude();
+        this.longitude = planReqDto.getLongitude();
+        this.place = planReqDto.getPlace();
 
     }
     public void changePlan(PlanReqDto planReqDto){
