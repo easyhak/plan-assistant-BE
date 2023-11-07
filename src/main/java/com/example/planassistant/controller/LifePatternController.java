@@ -27,7 +27,7 @@ public class LifePatternController extends CommonController {
     }
 
     @GetMapping
-    public ResponseEntity getLifePatterns(@AuthenticationPrincipal User user, @RequestParam String life){
+    public ResponseEntity getLifePatterns(@AuthenticationPrincipal User user, @RequestParam(required = false) String life){
         return OkReturn(lifePatternService.getLifePatterns(user.getUsername(), life));
     }
 }

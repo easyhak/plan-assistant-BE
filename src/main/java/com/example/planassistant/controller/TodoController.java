@@ -46,7 +46,7 @@ public class TodoController extends CommonController {
     @ApiResponse(responseCode = "200", description = "todo list를 가져옵니다.", content = {
             @Content(array = @ArraySchema(schema = @Schema(implementation = TodoResDto.class)))
     })
-    public ResponseEntity getAllTodo(@AuthenticationPrincipal User user, @RequestParam Boolean complete){
+    public ResponseEntity getAllTodo(@AuthenticationPrincipal User user, @RequestParam(required = false) Boolean complete){
         log.info(complete.toString());
         var res = todoService.getAllTodo((user.getUsername()), complete);
         return OkReturn(res);
