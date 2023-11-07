@@ -47,7 +47,7 @@ public class TodoController extends CommonController {
             @Content(array = @ArraySchema(schema = @Schema(implementation = TodoResDto.class)))
     })
     public ResponseEntity getAllTodo(@AuthenticationPrincipal User user, @RequestParam(required = false) Boolean complete){
-        log.info(complete.toString());
+        System.out.println(complete);
         var res = todoService.getAllTodo((user.getUsername()), complete);
         return OkReturn(res);
     }
