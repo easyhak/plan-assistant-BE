@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.UUID;
 
 @Service
 @Slf4j
@@ -43,13 +42,18 @@ public class TodoService {
         todoRepository.save(todo);
     }
 
-    // 멤버의 모든 todo 가져오기
+    // 멤버의 모든 todo 가져오기 or complete 값에 따라 가져오기
     @Transactional(readOnly = true)
-    public List<TodoResDto> getAllTodo(String memberId){
+    public List<TodoResDto> getAllTodo(String memberId, Boolean complete){
         var member = memberRepository.findById(memberId)
                 .orElseThrow(()-> new NoSuchElementException("cannot find member"));
-
-        var todos = todoRepository.findTodoByMemberOrderByUpdateDate(member);
+        List<Todo> todos;
+        if (complete == null){
+            todos = todoRepository.findTodoByMemberOrderByUpdateDate(member);
+        }
+        else {
+            todos = todoRepository.findByMemberAndCompleteOrderByUpdateDate(member, complete);
+        }
         List<TodoResDto> todoResDtoList = new ArrayList<>();
         for(Todo x: todos){
             todoResDtoList.add(new TodoResDto(x));
@@ -80,7 +84,7 @@ public class TodoService {
                 ()-> new NoSuchElementException("cannot find todo")
         );
         // todo 가 true면 false로 변경
-        if (todo.getComplete() == false){
+        if (!todo.getComplete()){
             todo.setComplete(true);
         }
         // todo 가 false면 true로 변경
@@ -105,4 +109,5 @@ public class TodoService {
 
         return new TodoResDto(todo);
     }
+
 }

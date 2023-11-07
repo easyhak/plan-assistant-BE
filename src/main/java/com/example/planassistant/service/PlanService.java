@@ -7,7 +7,6 @@ import com.example.planassistant.repository.MemberRepository;
 import com.example.planassistant.repository.PlanRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

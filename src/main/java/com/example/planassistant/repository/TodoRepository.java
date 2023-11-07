@@ -8,5 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TodoRepository extends JpaRepository<Todo, Long> {
-    public List<Todo> findTodoByMemberOrderByUpdateDate(Member member);
+    List<Todo> findTodoByMemberOrderByUpdateDate(Member member);
+    List<Todo> findByMemberAndCompleteOrderByUpdateDate(Member member, Boolean complete);
 }
