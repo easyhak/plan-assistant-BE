@@ -7,10 +7,12 @@ import com.example.planassistant.repository.MemberRepository;
 import com.example.planassistant.repository.PlanRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -71,14 +73,22 @@ public class PlanService {
     }
 
 
-    // 현재 날짜에 addDate한 날짜까지의 plan을 가져온다.
+    // 현재 날짜 + 1 에 addDate한 날짜까지의 plan을 가져온다.
+    // 예시: 오늘 날짜가 11월 7일이고 addDate가 3이면 11월 8일부터 11월 11일까지의 plan 리스트를 가져온다.
     @Transactional(readOnly = true)
-    public List<Plan> getPlansByDate(String memberId, Integer addDate){
+    public List<PlanResDto> getPlansByDate(String memberId, Integer addDate){
         var member = memberRepository.findById(memberId)
                 .orElseThrow(()-> new NoSuchElementException("member not fount"));
-        var nowDate = LocalDate.now();
-        var plusDate = nowDate.plusDays(addDate);
-        var plans = planRepository.findPlanByMemberAndStartTimeBetween(member, nowDate, plusDate);
-        return plans;
+        var nowDate = LocalDate.now().plusDays(1);
+        var startDateTime = nowDate.atStartOfDay();
+        var plusDateTime = nowDate.plusDays(addDate).atTime(LocalTime.MAX);
+        System.out.println(startDateTime);
+        System.out.println(plusDateTime);
+        var plans = planRepository.findPlanByMemberAndStartTimeBetweenOrderByStartTime(member, startDateTime, plusDateTime);
+        List<PlanResDto> planResDtoList = new ArrayList<>();
+        for(var x: plans){
+            planResDtoList.add(new PlanResDto(x));
+        }
+        return planResDtoList;
     }
 }
