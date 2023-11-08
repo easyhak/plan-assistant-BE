@@ -23,7 +23,7 @@ public class LifePattern {
     // enum 값으로 입력 받기
     @Enumerated(EnumType.STRING)
     private Life life; // SLEEPING_TIME, NOT_FOCUS_TIME, WORKING_TIME, FOCUS_TIME
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) // MON, TUE, WED, THU, FRI, SAT, SUN
     private DayOfTheWeek dayOfTheWeek;
     private LocalTime startTime;
     private LocalTime endTime;

@@ -43,7 +43,11 @@ public class PlanController extends CommonController {
     public ResponseEntity getAllPlan(@AuthenticationPrincipal User user){
         return OkReturn(planService.getPlanByMember(user.getUsername()));
     }
-
+    @GetMapping("/date/{addDate}")
+    public ResponseEntity getPlanByAddDate(@AuthenticationPrincipal User user, @PathVariable Integer addDate){
+        log.info(addDate.toString());
+        return OkReturn(planService.getPlansByDate(user.getUsername(), addDate));
+    }
     @PutMapping("/{id}")
     public ResponseEntity changePlan(@AuthenticationPrincipal User user, @PathVariable Long id, @RequestBody PlanReqDto planReqDto){
         planService.changePlan(id, planReqDto);

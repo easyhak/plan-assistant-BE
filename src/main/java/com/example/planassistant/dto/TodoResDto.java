@@ -18,7 +18,10 @@ public class TodoResDto {
     private String content;
     @Schema(description = "우선순위", nullable = true, example = "3")
     private Integer priority;
-
+    @Schema(description = "위도", nullable = true, example = "111.1111")
+    private Long latitude;
+    @Schema(description = "경도", nullable = true, example = "122.1111")
+    private Long longitude;
     @Schema(description = "마감기한", nullable = true, example = "2023-12-12 10:00")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime deadline;
@@ -29,6 +32,8 @@ public class TodoResDto {
         this.id = todo.getId();
         this.place = todo.getPlace();
         this.priority = todo.getPriority();
+        this.longitude = todo.getLongitude();
+        this.latitude = todo.getLatitude();
         this.deadline = todo.getDeadline();
         this.updateDate = todo.getUpdateDate();
         this.content = todo.getContent();
