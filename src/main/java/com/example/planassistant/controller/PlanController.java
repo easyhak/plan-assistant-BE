@@ -2,7 +2,6 @@ package com.example.planassistant.controller;
 
 import com.example.planassistant.common.CommonController;
 import com.example.planassistant.dto.PlanReqDto;
-import com.example.planassistant.dto.TodoReqDto;
 import com.example.planassistant.service.PlanService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -15,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/plan")
@@ -46,7 +47,7 @@ public class PlanController extends CommonController {
     @GetMapping("/date/{addDate}")
     public ResponseEntity getPlanByAddDate(@AuthenticationPrincipal User user, @PathVariable Integer addDate){
         log.info(addDate.toString());
-        return OkReturn(planService.getPlansByDate(user.getUsername(), addDate));
+        return OkReturn(planService.getPlansByAddDate(user.getUsername(), addDate));
     }
     @PutMapping("/{id}")
     public ResponseEntity changePlan(@AuthenticationPrincipal User user, @PathVariable Long id, @RequestBody PlanReqDto planReqDto){
@@ -57,5 +58,15 @@ public class PlanController extends CommonController {
     @DeleteMapping("{id}")
     public ResponseEntity deletePlan(@AuthenticationPrincipal User user, @PathVariable Long id){
         return AcceptedReturn(planService.deletePlan(id));
+    }
+
+    @Operation(summary = "plan을 date로 받아서 보여줍니다. ", description = "startDate에 맞게 plan을 보여줍니다" +
+            "yyyy-MM-dd 형식")
+    @GetMapping("/calendar/{date}")
+    public ResponseEntity getPlansByStartDate(@AuthenticationPrincipal User user, @PathVariable String date){
+        log.info("getPlansByStartDate Call");
+        log.info(date);
+        LocalDate localDate = LocalDate.parse(date);
+        return OkReturn(planService.getPlansByStartDate(user.getUsername(),localDate));
     }
 }

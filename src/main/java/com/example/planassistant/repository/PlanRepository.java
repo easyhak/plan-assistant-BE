@@ -11,4 +11,6 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
     List<Plan> findPlanByMemberOrderByStartTime(Member member);
 
     List<Plan> findPlanByMemberAndStartTimeBetweenOrderByStartTime(Member member, LocalDateTime start, LocalDateTime end);
+
+    List<Plan> findPlanByMemberAndStartTimeBetween(Member member, LocalDateTime start, LocalDateTime end);
 }
