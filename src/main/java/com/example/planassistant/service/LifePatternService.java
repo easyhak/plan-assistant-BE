@@ -72,4 +72,17 @@ public class LifePatternService {
     }
 
 
+    @Transactional
+    public String createLifePatterns(String memberId, List<LifePatternReqDto> lifePatternReqDtos){
+        var member = memberRepository.findById(memberId).orElseThrow(
+                ()->new NoSuchElementException("member not found")
+        );
+        List<LifePattern> lifePatterns = new ArrayList<>();
+        for(LifePatternReqDto x: lifePatternReqDtos){
+            lifePatterns.add(new LifePattern(x, member));
+        }
+        lifePatternRepository.saveAll(lifePatterns);
+        return "created";
+    }
+
 }

@@ -12,6 +12,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -30,5 +32,12 @@ public class LifePatternController extends CommonController {
     public ResponseEntity getLifePatterns(@AuthenticationPrincipal User user, @RequestParam(required = false) String life){
         System.out.println(life);
         return OkReturn(lifePatternService.getLifePatterns(user.getUsername(), life));
+    }
+
+    @Operation(summary = "생활패턴 여러개 생성")
+    @PostMapping("/list")
+    public ResponseEntity createLifePatterns(@AuthenticationPrincipal User user, @RequestBody List<LifePatternReqDto> dto){
+        lifePatternService.createLifePatterns(user.getUsername(), dto);
+        return CreatedReturn("created");
     }
 }
