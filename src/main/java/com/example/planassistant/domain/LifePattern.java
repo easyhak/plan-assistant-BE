@@ -23,8 +23,6 @@ public class LifePattern {
     // enum 값으로 입력 받기
     @Enumerated(EnumType.STRING)
     private Life life; // SLEEPING_TIME, NOT_FOCUS_TIME, WORKING_TIME, FOCUS_TIME
-    @Enumerated(EnumType.STRING) // MON, TUE, WED, THU, FRI, SAT, SUN
-    private DayOfTheWeek dayOfTheWeek;
     private LocalTime startTime;
     private LocalTime endTime;
 
@@ -34,8 +32,6 @@ public class LifePattern {
 
     public LifePattern(LifePatternReqDto dto, Member member) {
         this.life = dto.getLife();
-        this.dayOfTheWeek = dto.getDayOfTheWeek();
-        this.startTime = dto.getStartTime();
         this.endTime = dto.getEndTime();
         this.member = member;
     }
@@ -43,14 +39,10 @@ public class LifePattern {
     @Builder
     public LifePattern(Life life,DayOfTheWeek dayOfTheWeek,LocalTime startDateTime, LocalTime endDateTime){
         this.life = life;
-        this.dayOfTheWeek = dayOfTheWeek;
         this.startTime = startDateTime;
         this.endTime = endDateTime;
     }
 
-    public void setDayOfTheWeek(DayOfTheWeek dayOfTheWeek) {
-        this.dayOfTheWeek = dayOfTheWeek;
-    }
     public void setLife(Life life) {
         this.life = life;
     }

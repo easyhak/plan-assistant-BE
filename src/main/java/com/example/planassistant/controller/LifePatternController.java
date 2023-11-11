@@ -37,7 +37,6 @@ public class LifePatternController extends CommonController {
     @Operation(summary = "생활패턴 여러개 생성")
     @PostMapping("/list")
     public ResponseEntity createLifePatterns(@AuthenticationPrincipal User user, @RequestBody List<LifePatternReqDto> dto){
-        lifePatternService.createLifePatterns(user.getUsername(), dto);
-        return CreatedReturn("created");
+        return CreatedReturn(lifePatternService.createLifePatterns(user.getUsername(), dto));
     }
 }

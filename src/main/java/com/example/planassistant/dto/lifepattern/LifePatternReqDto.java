@@ -16,8 +16,6 @@ import java.time.LocalTime;
 public class LifePatternReqDto {
     @Schema(description = "생활패턴 내용", nullable = false, implementation = Life.class, example = "SLEEPING_TIME")
     private Life life;
-    @Schema(description = "요일", nullable = false, implementation = DayOfTheWeek.class, example = "MON")
-    private DayOfTheWeek dayOfTheWeek;
     @Schema(description = "시작 시간", nullable = false ,example = "02:00")
     @JsonFormat(pattern = "HH:mm")
     private LocalTime startTime;

@@ -45,7 +45,6 @@ public class LifePatternService {
         );
         /* dto 내용으로 변경*/
         lifePattern.setLife(dto.getLife());
-        lifePattern.setDayOfTheWeek(dto.getDayOfTheWeek());
         lifePattern.setEndTime(dto.getEndTime());
         lifePattern.setStartTime(dto.getStartTime());
         return "updated";

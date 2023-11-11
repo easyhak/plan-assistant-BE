@@ -15,8 +15,6 @@ public class LifePatternResDto {
     private Integer id;
     @Schema(description = "생활패턴 내용", nullable = false, implementation = Life.class, example = "SLEEPING_TIME")
     private Life life;
-    @Schema(description = "요일", nullable = false, implementation = DayOfTheWeek.class, example = "MON")
-    private DayOfTheWeek dayOfTheWeek;
     @Schema(description = "시작 시간", nullable = false ,example = "02:00")
     @JsonFormat(pattern = "HH:mm")
     private LocalTime startTime;
@@ -26,7 +24,6 @@ public class LifePatternResDto {
 
     public LifePatternResDto(LifePattern lifePattern){
         this.id = lifePattern.getId();
-        this.dayOfTheWeek = lifePattern.getDayOfTheWeek();
         this.life = lifePattern.getLife();
         this.startTime = lifePattern.getStartTime();
         this.endTime = lifePattern.getEndTime();
