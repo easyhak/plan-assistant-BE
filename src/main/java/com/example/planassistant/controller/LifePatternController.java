@@ -39,4 +39,9 @@ public class LifePatternController extends CommonController {
     public ResponseEntity createLifePatterns(@AuthenticationPrincipal User user, @RequestBody List<LifePatternReqDto> dto){
         return CreatedReturn(lifePatternService.createLifePatterns(user.getUsername(), dto));
     }
+    @Operation(description = "life pattern id에 따라 수정", summary = "수정")
+    @PutMapping("/{id}")
+    public ResponseEntity updateLifePattern(@AuthenticationPrincipal User user, @PathVariable Long id,@RequestBody LifePatternReqDto dto){
+        return AcceptedReturn(lifePatternService.updateLifePattern(user.getUsername(), dto, id));
+    }
 }
