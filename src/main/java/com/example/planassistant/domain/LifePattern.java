@@ -1,6 +1,5 @@
 package com.example.planassistant.domain;
 
-import com.example.planassistant.domain.enumType.DayOfTheWeek;
 import com.example.planassistant.domain.enumType.Life;
 import com.example.planassistant.dto.lifepattern.LifePatternReqDto;
 import jakarta.persistence.*;
@@ -37,7 +36,7 @@ public class LifePattern {
     }
 
     @Builder
-    public LifePattern(Life life,DayOfTheWeek dayOfTheWeek,LocalTime startDateTime, LocalTime endDateTime){
+    public LifePattern(Life life,LocalTime startDateTime, LocalTime endDateTime){
         this.life = life;
         this.startTime = startDateTime;
         this.endTime = endDateTime;
@@ -54,6 +53,8 @@ public class LifePattern {
     public void setEndTime(LocalTime endDateTime) {
         this.endTime = endDateTime;
     }
-
+    public void setMember(Member member){
+        this.member = member;
+    }
 }
 
