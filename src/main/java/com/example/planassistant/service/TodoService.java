@@ -110,4 +110,14 @@ public class TodoService {
         return new TodoResDto(todo);
     }
 
+    public Long getTotalTodo(String username, Boolean complete) {
+        var member = memberRepository.findById(username).orElseThrow(
+                ()-> new NoSuchElementException("cannot find member")
+        );
+        if (complete == null){
+            return todoRepository.countByMember(member);
+        } else {
+            return todoRepository.countByMemberAndComplete(member, complete);
+        }
+    }
 }

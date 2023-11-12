@@ -76,4 +76,14 @@ public class TodoController extends CommonController {
         log.info(todoReqDto.toString());
         return AcceptedReturn(todoService.changeTodo(id, todoReqDto));
     }
+
+    @Operation(summary = "Get Todo count",
+            description = "complete에 따라 todo의 개수를 가져옵니다. complete가 없으면 전체 todo의 개수" +
+                    "반환값 정수")
+    @GetMapping("/count")
+    public ResponseEntity getTotalTodo(@AuthenticationPrincipal User user, @RequestParam(required = false) Boolean complete){
+        log.info("getTotalTodo Call");
+        return OkReturn(todoService.getTotalTodo(user.getUsername(), complete));
+    }
+
 }

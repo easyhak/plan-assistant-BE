@@ -89,4 +89,9 @@ public class AuthService {
         // 토큰 발급
         return tokenDto;
     }
+
+    @Transactional
+    public void withdrawal(String userId) {
+        memberRepository.deleteById(userId);
+    }
 }
