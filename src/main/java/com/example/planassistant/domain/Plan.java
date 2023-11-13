@@ -1,5 +1,6 @@
 package com.example.planassistant.domain;
 
+import com.example.planassistant.common.BaseTimeEntity;
 import com.example.planassistant.dto.PlanReqDto;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 // 1:N 매핑 Member : Plan
-public class Plan {
+public class Plan extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
