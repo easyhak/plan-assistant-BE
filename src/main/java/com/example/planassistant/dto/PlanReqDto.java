@@ -26,7 +26,7 @@ public class PlanReqDto {
     private LocalDateTime endTime;
 
     @Schema(description = "위도", nullable = true, example = "2023-10-12 12:00")
-    private Long latitude;
+    private Double latitude;
     @Schema(description = "경도", nullable = true, example = "2023-10-12 12:00")
-    private Long longitude;
+    private Double longitude;
 }

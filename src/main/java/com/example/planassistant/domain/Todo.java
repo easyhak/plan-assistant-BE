@@ -29,8 +29,8 @@ public class Todo extends BaseTimeEntity {
 
     private LocalDateTime deadline;
 
-    private Long latitude;
-    private Long longitude;
+    private Double latitude;
+    private Double longitude;
     private Boolean complete;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -38,7 +38,7 @@ public class Todo extends BaseTimeEntity {
     private Member member;
 
     @Builder
-    public Todo(String place,String content, Integer priority, LocalDateTime deadline, Long latitude, Long longitude, Member member){
+    public Todo(String place,String content, Integer priority, LocalDateTime deadline, Double latitude, Double longitude, Member member){
         this.place = place;
         this.priority = priority;
         this.deadline = deadline;

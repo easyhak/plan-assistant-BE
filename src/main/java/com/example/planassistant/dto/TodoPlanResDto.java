@@ -21,8 +21,8 @@ public class TodoPlanResDto {
     private String place;
     @Schema(description = "내용")
     private String content;
-    private Long longitude;
-    private Long latitude;
+    private Double longitude;
+    private Double latitude;
 
     @Schema(description = "todo의 id")
     private Long todo_id;

@@ -18,9 +18,9 @@ public class PlanResDto {
     @Schema(description = "장소", example = "중앙대학교")
     private String place;
     @Schema(description = "위도")
-    private Long latitude;
+    private Double latitude;
     @Schema(description = "위도")
-    private Long longitude;
+    private Double longitude;
     @Schema(description = "내용", example = "캡스톤 회의")
     private String content;
 

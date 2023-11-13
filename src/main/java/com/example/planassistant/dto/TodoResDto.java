@@ -19,9 +19,9 @@ public class TodoResDto {
     @Schema(description = "우선순위", nullable = true, example = "3")
     private Integer priority;
     @Schema(description = "위도", nullable = true, example = "111.1111")
-    private Long latitude;
+    private Double latitude;
     @Schema(description = "경도", nullable = true, example = "122.1111")
-    private Long longitude;
+    private Double longitude;
     @Schema(description = "마감기한", nullable = true, example = "2023-12-12 10:00")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime deadline;

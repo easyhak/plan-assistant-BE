@@ -16,8 +16,8 @@ public class PlanLogic {
 
 
     // 거리 계산 함수
-    private ArrayList<Long> calculateDistance(List<Plan> plans, Long latitude, Long longitude){
-        var distanceList = new ArrayList<Long>();
+    private ArrayList<Double> calculateDistance(List<Plan> plans, Long latitude, Long longitude){
+        var distanceList = new ArrayList<Double>();
         for(Plan x: plans){
 
             var p = Math.abs(x.getLatitude() - latitude);
