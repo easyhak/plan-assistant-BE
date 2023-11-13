@@ -34,7 +34,7 @@ public class TodoService {
                 .place(todoReqDto.getPlace())
                 .deadline(todoReqDto.getDeadline())
                 .content(todoReqDto.getContent())
-                .latitude(todoReqDto.getLongitude())
+                .latitude(todoReqDto.getLatitude())
                 .longitude(todoReqDto.getLongitude())
                 .member(member)
                 .build();
