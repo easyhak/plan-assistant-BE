@@ -51,13 +51,13 @@ public class Member extends BaseTimeEntity {
 
             var notFocusTime = LifePattern.builder()
                     .life(Life.NOT_FOCUS_TIME)
-                    .endDateTime(LocalTime.of(12,0,0))
-                    .startDateTime(LocalTime.of(13, 0 , 0))
+                    .endDateTime(LocalTime.of(13,0,0))
+                    .startDateTime(LocalTime.of(12, 0 , 0))
                     .build();
             var focusTime = LifePattern.builder()
                     .life(Life.FOCUS_TIME)
-                    .endDateTime(LocalTime.of(19,0,0))
-                    .startDateTime(LocalTime.of(21, 0 , 0))
+                    .endDateTime(LocalTime.of(21,0,0))
+                    .startDateTime(LocalTime.of(19, 0 , 0))
                     .build();
             sleepTime.setMember(this);
             focusTime.setMember(this);
