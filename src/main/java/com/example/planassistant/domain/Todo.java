@@ -4,6 +4,9 @@ package com.example.planassistant.domain;
 import com.example.planassistant.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.time.LocalDateTime;
 
 
@@ -31,6 +34,7 @@ public class Todo extends BaseTimeEntity {
     private Boolean complete;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Member member;
 
     @Builder

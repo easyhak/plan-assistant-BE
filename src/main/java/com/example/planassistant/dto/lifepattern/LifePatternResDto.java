@@ -1,7 +1,6 @@
 package com.example.planassistant.dto.lifepattern;
 
 import com.example.planassistant.domain.LifePattern;
-import com.example.planassistant.domain.enumType.DayOfTheWeek;
 import com.example.planassistant.domain.enumType.Life;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;

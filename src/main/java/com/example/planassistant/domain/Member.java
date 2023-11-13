@@ -29,6 +29,8 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LifePattern> lifePatterns = new ArrayList<>();
 
+
+
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
