@@ -3,15 +3,13 @@ package com.example.planassistant.domain;
 import com.example.planassistant.common.BaseTimeEntity;
 import com.example.planassistant.domain.enumType.Thing;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Importance {
     @Id

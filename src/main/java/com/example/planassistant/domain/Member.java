@@ -44,33 +44,34 @@ public class Member extends BaseTimeEntity {
         this.password = password;
         this.authority = authority;
     }
+
     @PostLoad
     @PostConstruct
     public void addDefault(){
         if(lifePatterns.isEmpty()){
 
-            var sleepTime =  LifePattern.builder()
+            var lifePatternSleepTime =  LifePattern.builder()
                     .life(Life.SLEEPING_TIME)
                     .endDateTime(LocalTime.of(8,0,0))
                     .startDateTime(LocalTime.of(0, 0 , 0))
                     .build();
 
-            var notFocusTime = LifePattern.builder()
+            var lifePatternNotFocusTime = LifePattern.builder()
                     .life(Life.NOT_FOCUS_TIME)
                     .endDateTime(LocalTime.of(13,0,0))
                     .startDateTime(LocalTime.of(12, 0 , 0))
                     .build();
-            var focusTime = LifePattern.builder()
+            var lifePatternFocusTime = LifePattern.builder()
                     .life(Life.FOCUS_TIME)
                     .endDateTime(LocalTime.of(21,0,0))
                     .startDateTime(LocalTime.of(19, 0 , 0))
                     .build();
-            sleepTime.setMember(this);
-            focusTime.setMember(this);
-            notFocusTime.setMember(this);
-            this.lifePatterns.add(sleepTime);
-            this.lifePatterns.add(focusTime);
-            this.lifePatterns.add(notFocusTime);
+            lifePatternSleepTime.setMember(this);
+            lifePatternNotFocusTime.setMember(this);
+            lifePatternFocusTime.setMember(this);
+            this.lifePatterns.add(lifePatternSleepTime);
+            this.lifePatterns.add(lifePatternNotFocusTime);
+            this.lifePatterns.add(lifePatternFocusTime);
 
         }
         if(importanceList.isEmpty()){
