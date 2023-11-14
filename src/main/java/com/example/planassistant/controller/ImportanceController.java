@@ -1,6 +1,7 @@
 package com.example.planassistant.controller;
 
 import com.example.planassistant.common.CommonController;
+import com.example.planassistant.domain.enumType.Thing;
 import com.example.planassistant.dto.ImportanceReqDto;
 import com.example.planassistant.dto.ImportanceResDto;
 import com.example.planassistant.repository.ImportanceRepository;
@@ -30,10 +31,10 @@ public class ImportanceController extends CommonController {
 
         return OkReturn(x);
     }
-    @PutMapping("/{id}")
-    public ResponseEntity updateImportance(@AuthenticationPrincipal User user, @PathVariable Long id, @RequestBody ImportanceReqDto dto){
+    @PutMapping("/{name}")
+    public ResponseEntity updateImportance(@AuthenticationPrincipal User user, @PathVariable Thing name, @RequestBody Integer degree){
         log.info("updateImportance call");
-        importanceService.updateImportance(user.getUsername(), id, dto);
+        importanceService.updateImportance(user.getUsername(), name, degree);
         return AcceptedReturn("updated");
     }
 }

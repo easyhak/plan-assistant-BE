@@ -1,6 +1,7 @@
 package com.example.planassistant.service;
 
 import com.example.planassistant.domain.Importance;
+import com.example.planassistant.domain.enumType.Thing;
 import com.example.planassistant.dto.ImportanceReqDto;
 import com.example.planassistant.dto.ImportanceResDto;
 import com.example.planassistant.repository.ImportanceRepository;
@@ -21,18 +22,11 @@ public class ImportanceService {
     private final ImportanceRepository importanceRepository;
     private final MemberRepository memberRepository;
     @Transactional
-    public void updateImportance(String memberId, Long importanceId, ImportanceReqDto dto){
-        var i = importanceRepository.findById(importanceId);
-        var member = memberRepository.findById(memberId)
-                .orElseThrow(
-                        () -> new NoSuchElementException("member not found")
-                );
-        var importance =  importanceRepository.findById(importanceId).orElseThrow(
-                () -> new NoSuchElementException("importance not found")
-        );
-
-        importance.setDegree(dto.getDegree());
-        importance.setName(dto.getName());
+    public void updateImportance(String memberId, Thing name, Integer degree){
+        var importance = importanceRepository.findByMember_IdAndName(memberId, name).orElseThrow(
+                ()-> new NoSuchElementException("no such element")
+            );
+        importance.setDegree(degree);
     }
 
     @Transactional(readOnly = true)
