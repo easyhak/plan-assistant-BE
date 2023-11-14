@@ -2,8 +2,6 @@ package com.example.planassistant.service;
 
 import com.example.planassistant.domain.Importance;
 import com.example.planassistant.domain.enumType.Thing;
-import com.example.planassistant.dto.ImportanceReqDto;
-import com.example.planassistant.dto.ImportanceResDto;
 import com.example.planassistant.repository.ImportanceRepository;
 import com.example.planassistant.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,16 +9,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class ImportanceService {
     private final ImportanceRepository importanceRepository;
-    private final MemberRepository memberRepository;
     @Transactional
     public void updateImportance(String memberId, Thing name, Integer degree){
         var importance = importanceRepository.findByMember_IdAndName(memberId, name).orElseThrow(
@@ -29,19 +24,26 @@ public class ImportanceService {
         importance.setDegree(degree);
     }
 
+
     @Transactional(readOnly = true)
-    public List<ImportanceResDto> getAllImportance(String memberId){
+    public Map<Thing ,Integer> getAllImportance(String memberId){
         var importanceList = importanceRepository.findByMember_Id(memberId);
-        List<ImportanceResDto> importanceResDtos = new ArrayList<>();
+        /*
+        {
+          "PRIORITY": 1,
+          "NOT_FOCUS_TIME": 3,
+          "DEADLINE": 5,
+          "DISTANCE": 4,
+          "FOCUS_TIME": 2
+         }
+
+         */
+        var res = new HashMap<Thing ,Integer>();
         for(Importance x: importanceList){
-            var i = ImportanceResDto.builder()
-                    .name(x.getName())
-                    .id(x.getId())
-                    .degree(x.getDegree())
-                    .build();
-            importanceResDtos.add(i);
+
+            res.put(x.getName(), x.getDegree());
         }
 
-        return importanceResDtos;
+        return res;
     }
 }
