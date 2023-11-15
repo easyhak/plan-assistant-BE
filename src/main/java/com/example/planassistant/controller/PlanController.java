@@ -34,12 +34,12 @@ public class PlanController extends CommonController {
         planService.makePlan(user.getUsername(), planReqDto);
         return CreatedReturn("created");
     }
-
+    @Operation(summary = "plan 상세 조회", description = "plan 상세 조회")
     @GetMapping("/{id}")
     public ResponseEntity getPlan(@AuthenticationPrincipal User user, @PathVariable Long id){
         return OkReturn(planService.getPlanById(id));
     }
-
+    @Operation(summary = "plan 전체 조회", description = "plan 전체 조회")
     @GetMapping()
     public ResponseEntity getAllPlan(@AuthenticationPrincipal User user){
         return OkReturn(planService.getPlanByMember(user.getUsername()));
@@ -49,12 +49,15 @@ public class PlanController extends CommonController {
         log.info(addDate.toString());
         return OkReturn(planService.getPlansByAddDate(user.getUsername(), addDate));
     }
+
+    @Operation(summary = "plan 수정", description = "plan을 수정 해줍니다.")
     @PutMapping("/{id}")
     public ResponseEntity changePlan(@AuthenticationPrincipal User user, @PathVariable Long id, @RequestBody PlanReqDto planReqDto){
         planService.changePlan(id, planReqDto);
         return AcceptedReturn("changed");
     }
 
+    @Operation(summary = "plan 삭제", description = "plan을 삭제 해줍니다.")
     @DeleteMapping("{id}")
     public ResponseEntity deletePlan(@AuthenticationPrincipal User user, @PathVariable Long id){
         return AcceptedReturn(planService.deletePlan(id));
@@ -70,6 +73,7 @@ public class PlanController extends CommonController {
         return OkReturn(planService.getPlansByStartDate(user.getUsername(),localDate));
     }
 
+    @Operation(summary = "plan을 year, month로 받아서 list로 보여줍니다. ", description = "year, month는 Integer")
     @GetMapping("/calendar/{year}/{month}")
     public ResponseEntity getPlansByMonthAndYear(@AuthenticationPrincipal User user, @PathVariable Integer year,
         @PathVariable Integer month){
