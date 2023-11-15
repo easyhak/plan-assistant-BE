@@ -64,9 +64,17 @@ public class PlanController extends CommonController {
             "yyyy-MM-dd 형식")
     @GetMapping("/calendar/{date}")
     public ResponseEntity getPlansByStartDate(@AuthenticationPrincipal User user, @PathVariable String date){
-        log.info("getPlansByStartDate Call");
-        log.info(date);
+        log.info("getPlansByStartDate Call" + date);
+
         LocalDate localDate = LocalDate.parse(date);
         return OkReturn(planService.getPlansByStartDate(user.getUsername(),localDate));
+    }
+
+    @GetMapping("/calendar/{year}/{month}")
+    public ResponseEntity getPlansByMonthAndYear(@AuthenticationPrincipal User user, @PathVariable Integer year,
+        @PathVariable Integer month){
+
+        log.info("getPlansByMonthAndYear Call");
+        return OkReturn(planService.getPlansByYearAndMonth(user.getUsername(), year, month));
     }
 }

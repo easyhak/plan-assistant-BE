@@ -107,4 +107,22 @@ public class PlanService {
         return planResDtoList;
 
     }
+
+    @Transactional(readOnly = true)
+    public List<PlanResDto> getPlansByYearAndMonth(String memberId, Integer year, Integer month){
+        var member = memberRepository.findById(memberId).orElseThrow(
+                ()-> new NoSuchElementException("member not found")
+        );
+        var start = LocalDate.of(year, month, 1);
+        var end = LocalDate.of(year, month, start.lengthOfMonth());
+        LocalDateTime startLocalDateTime = start.atStartOfDay();
+        LocalDateTime endLocalDateTime = end.atTime(LocalTime.MAX);
+
+        var plans = planRepository.findPlanByMemberAndStartTimeBetween(member, startLocalDateTime, endLocalDateTime);
+        List<PlanResDto> planResDtoList = new ArrayList<>();
+        for(var x: plans){
+            planResDtoList.add(new PlanResDto(x));
+        }
+        return planResDtoList;
+    }
 }
