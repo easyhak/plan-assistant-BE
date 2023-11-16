@@ -27,7 +27,10 @@ public class TodoResDto {
     private LocalDateTime deadline;
     @Schema(description = "업데이트 시간", nullable = true, example = "2023-10-12 09:30")
     private LocalDateTime updateDate;
+    @Schema(description = "완료 여부", nullable = true)
     private Boolean complete;
+    @Schema(description = "예상시간", nullable = true, example = "3")
+    private Integer expectTime;
     public TodoResDto(Todo todo){
         this.id = todo.getId();
         this.place = todo.getPlace();
@@ -38,6 +41,7 @@ public class TodoResDto {
         this.updateDate = todo.getUpdateDate();
         this.content = todo.getContent();
         this.complete = todo.getComplete();
+        this.expectTime = todo.getExpectTime();
     }
 }
 

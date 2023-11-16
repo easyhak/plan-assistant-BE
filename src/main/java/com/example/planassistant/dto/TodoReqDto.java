@@ -21,8 +21,10 @@ public class TodoReqDto {
     @Schema(description = "마감기한", nullable = true, example = "2023-12-12 10:00")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime deadline;
-    @Schema(description = "위도")
+    @Schema(description = "위도", example = "37.1242")
     private Double latitude;
-    @Schema(description = "경도")
+    @Schema(description = "경도", example = "127.1132")
     private Double longitude;
+    @Schema(description = "예상시간", example = "3")
+    private Integer expectTime;
 }

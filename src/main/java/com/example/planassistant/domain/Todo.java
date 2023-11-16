@@ -32,13 +32,15 @@ public class Todo extends BaseTimeEntity {
     private Double latitude;
     private Double longitude;
     private Boolean complete;
+    private Integer expectTime;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Member member;
 
     @Builder
-    public Todo(String place,String content, Integer priority, LocalDateTime deadline, Double latitude, Double longitude, Member member){
+    public Todo(String place,String content, Integer priority, LocalDateTime deadline, Double latitude, Double longitude,
+                Integer expectTime, Member member){
         this.place = place;
         this.priority = priority;
         this.deadline = deadline;
@@ -46,6 +48,7 @@ public class Todo extends BaseTimeEntity {
         this.member = member;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.expectTime = expectTime;
     }
 
     @PrePersist

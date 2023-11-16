@@ -36,6 +36,7 @@ public class TodoService {
                 .content(todoReqDto.getContent())
                 .latitude(todoReqDto.getLatitude())
                 .longitude(todoReqDto.getLongitude())
+                .expectTime(todoReqDto.getExpectTime())
                 .member(member)
                 .build();
 
@@ -106,7 +107,7 @@ public class TodoService {
         todo.setLongitude(todoReqDto.getLongitude());
         todo.setPlace(todoReqDto.getPlace());
         todo.setDeadline(todoReqDto.getDeadline());
-
+        todo.setExpectTime(todoReqDto.getExpectTime());
         return new TodoResDto(todo);
     }
 
