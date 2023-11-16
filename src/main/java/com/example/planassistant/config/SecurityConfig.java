@@ -37,7 +37,6 @@ public class SecurityConfig{
 
         // CSRF 설정 Disable
         http.csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
                 .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
 
                 // exception handling 할 때 우리가 만든 클래스를 추가
