@@ -17,6 +17,9 @@ public class CorsConfig implements WebMvcConfigurer {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("https://d2ai28jjtxgt7c.cloudfront.net");
+
+        config.addAllowedOrigin(CorsConfiguration.ALL);
         config.addAllowedOriginPattern("*");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
