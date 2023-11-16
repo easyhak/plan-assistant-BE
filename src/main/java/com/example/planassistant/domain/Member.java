@@ -27,6 +27,9 @@ public class Member extends BaseTimeEntity {
 
     private String password;
 
+    private String place;
+    private Double latitude;
+    private Double longitude;
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LifePattern> lifePatterns = new ArrayList<>();
 
@@ -45,6 +48,11 @@ public class Member extends BaseTimeEntity {
         this.authority = authority;
     }
 
+    public void updatePlace(String place, Double latitude, Double longitude){
+        this.place = place;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
     @PostLoad
     @PostConstruct
     public void addDefault(){
