@@ -10,10 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/member")
@@ -25,7 +22,7 @@ public class MemberController extends CommonController {
 
     @Operation(description = "장소 추가" +
             "{'place': '중앙대학교', 'longitude': 212.123, 'latitude':45.123 }")
-    @PatchMapping("/place")
+    @PutMapping("/place")
     public ResponseEntity insertPlace(@AuthenticationPrincipal User user, PlaceReqDto dto){
         log.info("insertPlace call");
         System.out.println(dto.toString());
