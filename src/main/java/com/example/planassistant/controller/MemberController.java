@@ -28,6 +28,7 @@ public class MemberController extends CommonController {
     @PatchMapping("/place")
     public ResponseEntity insertPlace(@AuthenticationPrincipal User user, PlaceReqDto dto){
         log.info("insertPlace call");
+        System.out.println(dto.toString());
         memberService.insertPlace(user.getUsername(), dto);
         return AcceptedReturn("updated");
     }
