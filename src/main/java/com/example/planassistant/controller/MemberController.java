@@ -23,7 +23,7 @@ public class MemberController extends CommonController {
     @Operation(description = "장소 추가" +
             "{'place': '중앙대학교', 'longitude': 212.123, 'latitude':45.123 }")
     @PutMapping("/place")
-    public ResponseEntity insertPlace(@AuthenticationPrincipal User user, PlaceReqDto dto){
+    public ResponseEntity insertPlace(@AuthenticationPrincipal User user, @RequestBody PlaceReqDto dto){
         log.info("insertPlace call");
         System.out.println(dto.toString());
         memberService.insertPlace(user.getUsername(), dto);
