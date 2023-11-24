@@ -99,7 +99,7 @@ public class PlanService {
                 .orElseThrow(()-> new NoSuchElementException("member not fount"));
         LocalDateTime start = startDate.atStartOfDay(); // 2021-10-25 00:00:00.00000000
         LocalDateTime end = startDate.atTime(LocalTime.MAX);
-        var plans = planRepository.findPlanByMemberAndStartTimeBetween(member, start, end);
+        var plans = planRepository.findPlanByMemberAndStartTimeBetweenOrderByStartTime(member, start, end);
         List<PlanResDto> planResDtoList = new ArrayList<>();
         for(var x: plans){
             planResDtoList.add(new PlanResDto(x));
