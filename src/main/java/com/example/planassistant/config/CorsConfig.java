@@ -18,9 +18,6 @@ public class CorsConfig implements WebMvcConfigurer {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
 
-//        config.addAllowedOrigin("http://localhost:3000");
-//        config.addAllowedOrigin("https://d2ai28jjtxgt7c.cloudfront.net");
-//        config.addAllowedOrigin(CorsConfiguration.ALL);
 
         config.addAllowedOriginPattern("*");
         config.addAllowedHeader("*");
@@ -29,14 +26,5 @@ public class CorsConfig implements WebMvcConfigurer {
         return new CorsFilter(source);
     }
 
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/**")
-//                .allowedOriginPatterns("*")
-//                .allowedMethods("*")
-//                .allowedHeaders("*")
-//                .allowCredentials(true)
-//                .maxAge(3600);
-//    }
 
 }
