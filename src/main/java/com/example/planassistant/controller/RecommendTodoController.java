@@ -26,6 +26,7 @@ public class RecommendTodoController extends CommonController {
 
     @PostMapping
     public ResponseEntity createRecommendTodos(@AuthenticationPrincipal User user, @RequestBody List<RecommendTodoReqDto> dtoList) {
+        log.info("createRecommendTodos call");
         recommendTodoService.createRecommendTodos(user.getUsername(), dtoList);
         return CreatedReturn("created");
     }

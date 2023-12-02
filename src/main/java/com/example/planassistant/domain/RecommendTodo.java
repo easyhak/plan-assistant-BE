@@ -21,7 +21,7 @@ public class RecommendTodo {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "todo_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Todo todo;
@@ -31,5 +31,9 @@ public class RecommendTodo {
         this.startTime = startTime;
         this.endTime = endTime;
         this.todo = todo;
+    }
+    public void update(LocalDateTime startTime, LocalDateTime endTime) {
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 }
