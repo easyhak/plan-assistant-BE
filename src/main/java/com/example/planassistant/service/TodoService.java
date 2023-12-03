@@ -103,11 +103,19 @@ public class TodoService {
         );
         todo.setContent(todoReqDto.getContent());
         todo.setLatitude(todoReqDto.getLatitude());
-        todo.setPriority(todoReqDto.getPriority());
-        todo.setLongitude(todoReqDto.getLongitude());
-        todo.setPlace(todoReqDto.getPlace());
         todo.setDeadline(todoReqDto.getDeadline());
         todo.setExpectTime(todoReqDto.getExpectTime());
+        // 장소 값은 받은 값이 다른 경우에만 수정하도록 하기
+        if (!todoReqDto.getPlace().equals(todo.getPlace())){
+            todo.setPlace(todoReqDto.getPlace());
+        }
+        if (!todoReqDto.getLatitude().equals(todo.getLatitude())){
+            todo.setLatitude(todoReqDto.getLatitude());
+        }
+        if (!todoReqDto.getLongitude().equals(todo.getLongitude())){
+            todo.setLongitude(todoReqDto.getLongitude());
+        }
+
         return new TodoResDto(todo);
     }
 
