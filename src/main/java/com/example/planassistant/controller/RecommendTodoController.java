@@ -24,6 +24,9 @@ import java.util.List;
 public class RecommendTodoController extends CommonController {
     private final RecommendTodoService recommendTodoService;
 
+
+    @Operation(summary = "recommendTodo를 저장 또는 갱신합니다.", description = "recommendTodos 저장" +
+            "list로 된 형태, 필요한 정보: id: {todo_id}, endTime: {yyyy-mm-dd}, startTime: {yyyy-mm-dd}")
     @PostMapping
     public ResponseEntity createRecommendTodos(@AuthenticationPrincipal User user, @RequestBody List<RecommendTodoReqDto> dtoList) {
         log.info("createRecommendTodos call");
@@ -31,7 +34,6 @@ public class RecommendTodoController extends CommonController {
         return CreatedReturn("created");
     }
     // query param 으로 시작과 끝 정할 수 있도록 하기
-
     public ResponseEntity getRecommendTodos(@AuthenticationPrincipal User user) {
         return OkReturn(recommendTodoService.getRecommendTodos(user.getUsername()));
     }
