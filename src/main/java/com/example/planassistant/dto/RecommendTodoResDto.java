@@ -1,10 +1,8 @@
 package com.example.planassistant.dto;
 
 import com.example.planassistant.domain.RecommendTodo;
-import com.example.planassistant.domain.Todo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 

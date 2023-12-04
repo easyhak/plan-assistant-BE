@@ -2,7 +2,6 @@ package com.example.planassistant.dto;
 
 import com.example.planassistant.domain.RecommendTodo;
 import com.example.planassistant.domain.Todo;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
