@@ -66,7 +66,7 @@ public class RecommendTodoService {
 
         LocalDateTime start = startDate.atStartOfDay(); // 2021-10-25 00:00:00.00000000
         LocalDateTime end = startDate.atTime(LocalTime.MAX);
-        var recommendTodosByDate = recommendTodoRepository.findRecommendTodoByStartTimeBetween(start, end);
+        var recommendTodosByDate = recommendTodoRepository.findRecommendTodoByStartTimeBetweenOrderByStartTime(start, end);
 
         List<RecommendTodoResDto> resDtos = new ArrayList<>();
         for (RecommendTodo x: recommendTodosByDate){
