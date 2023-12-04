@@ -3,6 +3,7 @@ package com.example.planassistant.service;
 import com.example.planassistant.common.exception.NoSuchElementException;
 import com.example.planassistant.dto.MemberResDto;
 import com.example.planassistant.dto.PlaceReqDto;
+import com.example.planassistant.repository.CategoryRepository;
 import com.example.planassistant.repository.MemberRepository;
 import com.example.planassistant.repository.PlanRepository;
 import com.example.planassistant.repository.TodoRepository;
@@ -18,6 +19,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final TodoRepository todoRepository;
     private final PlanRepository planRepository;
+    private final CategoryRepository categoryRepository;
 
     @Transactional
     public void insertPlace(String memberId, PlaceReqDto dto){
@@ -51,11 +53,12 @@ public class MemberService {
     }
 
     @Transactional
-    public void deletePlanAndTodo(String  username){
+    public void deletePlanAndTodoAndCategory(String  username){
         var member = memberRepository.findById(username).orElseThrow(
                 ()->new NoSuchElementException("member not found")
         );
         todoRepository.deleteByMember(member);
         planRepository.deleteByMember(member);
+        categoryRepository.deleteByMember(member);
     }
 }

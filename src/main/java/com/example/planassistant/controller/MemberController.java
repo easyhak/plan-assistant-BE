@@ -50,7 +50,7 @@ public class MemberController extends CommonController {
     @Operation(description = "todo, plan 전부 삭제")
     @DeleteMapping("/reset")
     public ResponseEntity deleteMember(@AuthenticationPrincipal User user){
-        memberService.deletePlanAndTodo(user.getUsername());
+        memberService.deletePlanAndTodoAndCategory(user.getUsername());
         return AcceptedReturn("deleted");
     }
 }
