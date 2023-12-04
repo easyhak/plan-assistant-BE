@@ -72,6 +72,7 @@ public class TodoService {
                         .orElseThrow(()->new NoSuchElementException("cannot find category"));
                 var todoDto =new TodoResDto(x);
                 todoDto.setCategory(category.getName());
+                todoDto.setExpectTime(category.getExpectTime());
                 todoResDtoList.add(todoDto);
             }
 
