@@ -3,6 +3,7 @@ package com.example.planassistant.service;
 import com.example.planassistant.domain.Todo;
 import com.example.planassistant.dto.TodoReqDto;
 import com.example.planassistant.dto.TodoResDto;
+import com.example.planassistant.repository.CategoryRepository;
 import com.example.planassistant.repository.MemberRepository;
 import com.example.planassistant.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,15 +21,15 @@ import java.util.NoSuchElementException;
 public class TodoService {
     private final MemberRepository memberRepository;
     private final TodoRepository todoRepository;
-
+    private final CategoryRepository categoryRepository;
     // todo 저장
     @Transactional
     public void addTodo(TodoReqDto todoReqDto, String memberId){
         log.info("todo의 정보: " + todoReqDto.toString());
         var member = memberRepository.findById(memberId)
                 .orElseThrow(()->new NoSuchElementException("cannot find member"));
-        
 
+        System.out.println(todoReqDto.toString());
         var todo = Todo.builder()
                 .priority(todoReqDto.getPriority())
                 .place(todoReqDto.getPlace())
@@ -36,7 +37,7 @@ public class TodoService {
                 .content(todoReqDto.getContent())
                 .latitude(todoReqDto.getLatitude())
                 .longitude(todoReqDto.getLongitude())
-                .expectTime(todoReqDto.getExpectTime())
+                .category(todoReqDto.getCategory())
                 .member(member)
                 .build();
 
@@ -55,9 +56,27 @@ public class TodoService {
         else {
             todos = todoRepository.findByMemberAndCompleteOrderByUpdateDate(member, complete);
         }
+
         List<TodoResDto> todoResDtoList = new ArrayList<>();
         for(Todo x: todos){
-            todoResDtoList.add(new TodoResDto(x));
+
+
+            // category 없는 경우 디폴트 설정 추가
+            if (x.getCategory() == null || x.getCategory().equals("")){
+                todoResDtoList.add(new TodoResDto(x));
+            }
+            // category 있는 expectTime 값을 가져오기
+
+            else {
+                var category = categoryRepository.findByMemberAndName(member, x.getCategory())
+                        .orElseThrow(()->new NoSuchElementException("cannot find category"));
+                var todoDto =new TodoResDto(x);
+                todoDto.setCategory(category.getName());
+                todoResDtoList.add(todoDto);
+            }
+
+
+
         }
         return todoResDtoList;
     }
@@ -104,7 +123,6 @@ public class TodoService {
         todo.setContent(todoReqDto.getContent());
         todo.setLatitude(todoReqDto.getLatitude());
         todo.setDeadline(todoReqDto.getDeadline());
-        todo.setExpectTime(todoReqDto.getExpectTime());
         // 장소 값은 받은 값이 다른 경우에만 수정하도록 하기
         if (!todoReqDto.getPlace().equals(todo.getPlace())){
             todo.setPlace(todoReqDto.getPlace());

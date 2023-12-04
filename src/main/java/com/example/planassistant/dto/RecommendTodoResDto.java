@@ -26,6 +26,5 @@ public class RecommendTodoResDto {
         this.content = todo.getTodo().getContent();
         this.deadline = todo.getTodo().getDeadline();
         this.place = todo.getTodo().getPlace();
-        this.expectTime = todo.getTodo().getExpectTime();
     }
 }

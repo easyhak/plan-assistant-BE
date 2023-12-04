@@ -4,10 +4,12 @@ import com.example.planassistant.domain.Todo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @Schema(description = "Todo Response Dto")
 public class TodoResDto {
     @Schema(description = "id", nullable = false, example = "1")
@@ -30,7 +32,9 @@ public class TodoResDto {
     @Schema(description = "완료 여부", nullable = true)
     private Boolean complete;
     @Schema(description = "예상시간", nullable = true, example = "3")
-    private Integer expectTime;
+    private Double expectTime;
+    @Schema(description = "category", nullable = true, example = "과제")
+    private String category;
     public TodoResDto(Todo todo){
         this.id = todo.getId();
         this.place = todo.getPlace();
@@ -40,8 +44,8 @@ public class TodoResDto {
         this.deadline = todo.getDeadline();
         this.updateDate = todo.getUpdateDate();
         this.content = todo.getContent();
+        this.category = todo.getCategory();
         this.complete = todo.getComplete();
-        this.expectTime = todo.getExpectTime();
     }
 }
 

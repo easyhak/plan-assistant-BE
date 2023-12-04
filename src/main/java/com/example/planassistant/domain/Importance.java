@@ -21,6 +21,8 @@ public class Importance {
 
     private Integer degree;
 
+    private Double weight;
+
     @ManyToOne
     @JoinColumn(name = "member_id")
     @OnDelete(action = OnDeleteAction.CASCADE)

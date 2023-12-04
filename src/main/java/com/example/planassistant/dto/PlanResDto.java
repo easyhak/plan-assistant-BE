@@ -31,6 +31,8 @@ public class PlanResDto {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
 
+    @Schema(description = "category", nullable = true, example = "과제")
+    private String category;
     public PlanResDto(Plan plan) {
         this.id = plan.getId();
         this.place = plan.getPlace();
@@ -39,5 +41,6 @@ public class PlanResDto {
         this.content = plan.getContent();
         this.startTime = plan.getStartTime();
         this.endTime = plan.getEndTime();
+        this.category = plan.getCategory();
     }
 }

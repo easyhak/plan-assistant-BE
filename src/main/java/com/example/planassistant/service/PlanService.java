@@ -3,6 +3,7 @@ package com.example.planassistant.service;
 import com.example.planassistant.domain.Plan;
 import com.example.planassistant.dto.PlanReqDto;
 import com.example.planassistant.dto.PlanResDto;
+import com.example.planassistant.repository.CategoryRepository;
 import com.example.planassistant.repository.MemberRepository;
 import com.example.planassistant.repository.PlanRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ import java.util.NoSuchElementException;
 public class PlanService {
     private final PlanRepository planRepository;
     private final MemberRepository memberRepository;
+    private final CategoryRepository categoryRepository;
     @Transactional
     public void makePlan(String memberId, PlanReqDto planReqDto){
         var member = memberRepository.findById(memberId).orElseThrow(
@@ -31,6 +33,18 @@ public class PlanService {
         var plan = new Plan(planReqDto, member);
         log.info(plan.getContent(), plan.getPlace());
         planRepository.save(plan);
+
+
+        if ((planReqDto.getCategory() == null || planReqDto.equals(""))){
+            return;
+        }
+        // change expectTime
+        var avg = planRepository.findAverageDurationByCategory(plan.getCategory());
+        System.out.printf(String.valueOf(avg));
+        var category = categoryRepository.findByMemberAndName(member, plan.getCategory()).orElseThrow(
+                ()->new NoSuchElementException("category not found")
+        );
+        category.changeExpectTime(avg);
     }
 
     @Transactional(readOnly = true)
@@ -60,6 +74,13 @@ public class PlanService {
                 ()->new NoSuchElementException("plan not found")
         );
         plan.changePlan(planReqDto);
+        var member = plan.getMember();
+        // change expectTime
+        var avg = planRepository.findAverageDurationByCategory(plan.getCategory());
+        var category = categoryRepository.findByMemberAndName(member, plan.getCategory()).orElseThrow(
+                ()->new NoSuchElementException("category not found")
+        );
+        category.changeExpectTime(avg);
         return "plan changed";
     }
 
@@ -68,7 +89,18 @@ public class PlanService {
         var plan = planRepository.findById(planId).orElseThrow(
                 ()->new NoSuchElementException("plan not found")
         );
+        var member = plan.getMember();
         planRepository.delete(plan);
+
+        // flush
+
+        // change expectTime
+        var avg = planRepository.findAverageDurationByCategory(plan.getCategory());
+        var category = categoryRepository.findByMemberAndName(member, plan.getCategory()).orElseThrow(
+            ()->new NoSuchElementException("category not found")
+        );
+        category.changeExpectTime(avg);
+
         return "plan deleted";
     }
 
@@ -125,4 +157,5 @@ public class PlanService {
         }
         return planResDtoList;
     }
+
 }

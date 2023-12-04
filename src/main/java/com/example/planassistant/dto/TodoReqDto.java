@@ -25,6 +25,6 @@ public class TodoReqDto {
     private Double latitude;
     @Schema(description = "경도", example = "127.1132")
     private Double longitude;
-    @Schema(description = "예상시간", example = "3")
-    private Integer expectTime;
+    @Schema(description = "카테고리", nullable = true)
+    private String category;
 }

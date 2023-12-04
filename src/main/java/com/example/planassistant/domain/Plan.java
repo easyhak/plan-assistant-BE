@@ -29,6 +29,9 @@ public class Plan extends BaseTimeEntity {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
+    //
+    private String category;
+
     @ManyToOne
     @JoinColumn(name = "member_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -53,6 +56,7 @@ public class Plan extends BaseTimeEntity {
         this.latitude = planReqDto.getLatitude();
         this.longitude = planReqDto.getLongitude();
         this.place = planReqDto.getPlace();
+        this.category = planReqDto.getCategory();
 
     }
     public void changePlan(PlanReqDto planReqDto){

@@ -29,4 +29,6 @@ public class PlanReqDto {
     private Double latitude;
     @Schema(description = "경도", nullable = true, example = "2023-10-12 12:00")
     private Double longitude;
+
+    private String category;
 }
