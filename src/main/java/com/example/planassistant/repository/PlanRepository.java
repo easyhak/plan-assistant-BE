@@ -26,4 +26,5 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
     // category에 따라 startTime과 endTime의 차를 조회하는 쿼리
     List<Plan> findByCategory(String category);
 
+    void deleteByMember(Member member);
 }

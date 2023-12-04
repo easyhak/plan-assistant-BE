@@ -46,4 +46,11 @@ public class MemberController extends CommonController {
     public ResponseEntity getCount(@AuthenticationPrincipal User user){
         return OkReturn(memberService.getCount(user.getUsername()));
     }
+
+    @Operation(description = "todo, plan 전부 삭제")
+    @DeleteMapping("/reset")
+    public ResponseEntity deleteMember(@AuthenticationPrincipal User user){
+        memberService.deletePlanAndTodo(user.getUsername());
+        return AcceptedReturn("deleted");
+    }
 }
