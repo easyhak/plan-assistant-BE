@@ -24,6 +24,9 @@ public class CategoryService {
         var member = memberRepository.findById(userId).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 유저입니다.")
         );
+        categoryRepository.findByMemberAndName(member, dto.getName()).ifPresent(
+                category -> {throw new IllegalArgumentException("이미 존재하는 카테고리입니다.");}
+        );
         var category = Category.builder()
                 .name(dto.getName())
                 .member(member)
