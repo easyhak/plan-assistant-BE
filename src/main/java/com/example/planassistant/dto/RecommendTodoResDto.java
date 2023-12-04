@@ -18,6 +18,8 @@ public class RecommendTodoResDto {
     private String content;
     private LocalDateTime deadline;
     private String place;
+    private Double latitude;
+    private Double longitude;
     private String category;
     public RecommendTodoResDto(RecommendTodo todo) {
         this.id = todo.getId();
@@ -26,6 +28,8 @@ public class RecommendTodoResDto {
         this.content = todo.getTodo().getContent();
         this.deadline = todo.getTodo().getDeadline();
         this.place = todo.getTodo().getPlace();
+        this.latitude = todo.getTodo().getLatitude();
+        this.longitude = todo.getTodo().getLongitude();
         this.category = todo.getTodo().getCategory();
     }
 }
