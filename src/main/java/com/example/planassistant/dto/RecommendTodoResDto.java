@@ -18,7 +18,7 @@ public class RecommendTodoResDto {
     private String content;
     private LocalDateTime deadline;
     private String place;
-    private Integer expectTime;
+    private String category;
     public RecommendTodoResDto(RecommendTodo todo) {
         this.id = todo.getId();
         this.startTime = todo.getStartTime();
@@ -26,5 +26,6 @@ public class RecommendTodoResDto {
         this.content = todo.getTodo().getContent();
         this.deadline = todo.getTodo().getDeadline();
         this.place = todo.getTodo().getPlace();
+        this.category = todo.getTodo().getCategory();
     }
 }

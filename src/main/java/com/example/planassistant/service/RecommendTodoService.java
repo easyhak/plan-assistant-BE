@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -28,6 +29,7 @@ public class RecommendTodoService {
     @Transactional
     public void createRecommendTodos(String memberId, List<RecommendTodoReqDto> dtoList) {
         List<RecommendTodo> recommendTodos = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         for(RecommendTodoReqDto dto: dtoList){
             // find
             var recommendTodo = recommendTodoRepository.findByTodo_Id(dto.getId()).orElse(null);
@@ -39,7 +41,9 @@ public class RecommendTodoService {
                 recommendTodos.add(dto.toEntity(dto,todo));
             }
             else {
-                recommendTodo.update(dto.getStartTime(), dto.getEndTime());
+                var start = LocalDateTime.parse(dto.getStartTime(), formatter);
+                var end = LocalDateTime.parse(dto.getEndTime(), formatter);
+                recommendTodo.update(start, end);
             }
         }
         recommendTodoRepository.saveAll(recommendTodos);
@@ -65,21 +69,24 @@ public class RecommendTodoService {
         var recommendTodosByDate = recommendTodoRepository.findRecommendTodoByStartTimeBetween(start, end);
 
         List<RecommendTodoResDto> resDtos = new ArrayList<>();
-
-        for(RecommendTodo x: recommendTodosByDate){
-            resDtos.add(new RecommendTodoResDto(x));
+        for (RecommendTodo x: recommendTodosByDate){
+            // 같은 멤버면 추가
+            if (x.getTodo().getMember().equals(member))
+                resDtos.add(new RecommendTodoResDto(x));
         }
-
 
         return resDtos;
     }
 
     @Transactional
     public String updateRecommendTodo(Long id, RecommendTodoReqDto dto) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         var recommendTodo = recommendTodoRepository.findById(id).orElseThrow(
                 () -> new NoSuchElementException("recommendTodo not exist")
         );
-        recommendTodo.update(dto.getStartTime(), dto.getEndTime());
+        var start = LocalDateTime.parse(dto.getStartTime(), formatter);
+        var end = LocalDateTime.parse(dto.getEndTime(), formatter);
+        recommendTodo.update(start, end);
         return "success";
     }
 
