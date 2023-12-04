@@ -24,10 +24,26 @@ public class MemberService {
         member.updatePlace(dto.getPlace(), dto.getLatitude(), dto.getLongitude());
     }
 
+    @Transactional(readOnly = true)
     public MemberResDto getMember(String username) {
         var member = memberRepository.findById(username).orElseThrow(
                 ()->new NoSuchElementException("member not found")
         );
         return new MemberResDto(member);
+    }
+
+    @Transactional
+    public void addCount(String username){
+        var member = memberRepository.findById(username).orElseThrow(
+                ()->new NoSuchElementException("member not found")
+        );
+        member.addCount();
+    }
+
+    public Integer getCount(String username) {
+        var member = memberRepository.findById(username).orElseThrow(
+                ()->new NoSuchElementException("member not found")
+        );
+        return member.getCount();
     }
 }

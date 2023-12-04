@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController extends CommonController {
     private final MemberService memberService;
 
-    @Operation(description = "장소 추가" +
+    @Operation(description = "집 장소 추가" +
             "{'place': '중앙대학교', 'longitude': 212.123, 'latitude':45.123 }")
     @PutMapping("/place")
     public ResponseEntity<String> insertPlace(@AuthenticationPrincipal User user, @RequestBody PlaceReqDto dto){
@@ -33,5 +33,17 @@ public class MemberController extends CommonController {
     public ResponseEntity getMember(@AuthenticationPrincipal User user){
 
         return OkReturn(memberService.getMember(user.getUsername()));
+    }
+
+    @Operation(description = "숫자 더하기")
+    @PatchMapping
+    public ResponseEntity addCount(@AuthenticationPrincipal User user){
+        memberService.addCount(user.getUsername());
+        return AcceptedReturn("updated");
+    }
+    @Operation(description = "숫자 가져오기")
+    @GetMapping("/count")
+    public ResponseEntity getCount(@AuthenticationPrincipal User user){
+        return OkReturn(memberService.getCount(user.getUsername()));
     }
 }

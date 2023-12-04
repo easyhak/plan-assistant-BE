@@ -30,6 +30,8 @@ public class Member extends BaseTimeEntity {
     private String place;
     private Double latitude;
     private Double longitude;
+
+    private Integer count = 0;
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LifePattern> lifePatterns = new ArrayList<>();
 
@@ -121,5 +123,8 @@ public class Member extends BaseTimeEntity {
         }
     }
 
+    public void addCount(){
+        this.count++;
+    }
 
 }
