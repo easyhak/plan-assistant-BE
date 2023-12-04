@@ -37,6 +37,8 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Importance> importanceList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Category> categories = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Authority authority;
@@ -106,6 +108,16 @@ public class Member extends BaseTimeEntity {
             this.importanceList.add(priority);
             this.importanceList.add(deadline);
 
+        }
+
+        if(categories.isEmpty()){
+            var study = Category.builder().name("공부").member(this).build();
+            var work = Category.builder().name("일").member(this).build();
+            var exercise = Category.builder().name("운동").member(this).build();
+
+            this.categories.add(study);
+            this.categories.add(work);
+            this.categories.add(exercise);
         }
     }
 
