@@ -3,7 +3,6 @@ package com.example.planassistant.service;
 import com.example.planassistant.domain.Importance;
 import com.example.planassistant.domain.enumType.Thing;
 import com.example.planassistant.repository.ImportanceRepository;
-import com.example.planassistant.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -45,5 +44,49 @@ public class ImportanceService {
         }
 
         return res;
+    }
+
+    @Transactional(readOnly = true)
+    public Map<Thing, Double> getWeight(String username) {
+        var importanceList = importanceRepository.findByMember_Id(username);
+        var res = new HashMap<Thing, Double>();
+        for(Importance x: importanceList){
+            res.put(x.getName(), x.getWeight());
+        }
+
+        return res;
+
+    }
+
+    @Transactional
+    public void updateWeight(String username, Map<Thing, Double> req) {
+        var importanceList = importanceRepository.findByMember_Id(username);
+        // 5개 바꾸기
+        var priority = importanceRepository.findByMember_IdAndName(username, Thing.PRIORITY).orElseThrow(
+                ()-> new NoSuchElementException("no such element")
+        );
+        var focusTime = importanceRepository.findByMember_IdAndName(username, Thing.FOCUS_TIME).orElseThrow(
+                ()-> new NoSuchElementException("no such element")
+        );
+        var notFocusTime = importanceRepository.findByMember_IdAndName(username, Thing.NOT_FOCUS_TIME).orElseThrow(
+                ()-> new NoSuchElementException("no such element")
+        );
+        var distance = importanceRepository.findByMember_IdAndName(username, Thing.DISTANCE).orElseThrow(
+                ()-> new NoSuchElementException("no such element")
+        );
+        var deadline = importanceRepository.findByMember_IdAndName(username, Thing.DEADLINE).orElseThrow(
+                ()-> new NoSuchElementException("no such element")
+        );
+
+        priority.setWeight(req.get(Thing.PRIORITY));
+        focusTime.setWeight(req.get(Thing.FOCUS_TIME));
+        notFocusTime.setWeight(req.get(Thing.NOT_FOCUS_TIME));
+        distance.setWeight(req.get(Thing.DISTANCE));
+        deadline.setWeight(req.get(Thing.DEADLINE));
+
+
+        log.info("weight updated");
+        return;
+
     }
 }

@@ -2,9 +2,7 @@ package com.example.planassistant.controller;
 
 import com.example.planassistant.common.CommonController;
 import com.example.planassistant.domain.enumType.Thing;
-import com.example.planassistant.dto.ImportanceReqDto;
-import com.example.planassistant.dto.ImportanceResDto;
-import com.example.planassistant.repository.ImportanceRepository;
+
 import com.example.planassistant.service.ImportanceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,7 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @Slf4j
@@ -40,4 +38,35 @@ public class ImportanceController extends CommonController {
         importanceService.updateImportance(user.getUsername(), name, degree);
         return AcceptedReturn("updated");
     }
+
+    @Operation(description = "가중치 가져오기" +
+            "{\n" +
+            "  \"DEADLINE\": 0.2,\n" +
+            "  \"NOT_FOCUS_TIME\": 0.4,\n" +
+            "  \"PRIORITY\": 0.1,\n" +
+            "  \"DISTANCE\": 0.2,\n" +
+            "  \"FOCUS_TIME\": 0.1\n" +
+            "}")
+    @GetMapping("/weight")
+    public ResponseEntity getWeight(@AuthenticationPrincipal User user){
+        log.info("getWeight call");
+        var res = importanceService.getWeight(user.getUsername());
+        return OkReturn(res);
+    }
+
+    @Operation(description = "가중치 수정, Request Body 로는 가중치 리스트 들어옴" +
+            "{\n" +
+            "  \"DEADLINE\": 0.2,\n" +
+            "  \"NOT_FOCUS_TIME\": 0.4,\n" +
+            "  \"PRIORITY\": 0.1,\n" +
+            "  \"DISTANCE\": 0.2,\n" +
+            "  \"FOCUS_TIME\": 0.1\n" +
+            "}")
+    @PutMapping("/weight")
+    public ResponseEntity updateWeight(@AuthenticationPrincipal User user, @RequestBody Map<Thing, Double> req){
+        System.out.println(req.toString());
+        importanceService.updateWeight(user.getUsername(), req);
+        return AcceptedReturn("updated");
+    }
+
 }

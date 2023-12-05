@@ -89,19 +89,21 @@ public class Member extends BaseTimeEntity {
         if(importanceList.isEmpty()){
             var notFocusTime = Importance.builder().
                     degree(5).
+                    weight(0.2).
                     name(Thing.NOT_FOCUS_TIME).member(this)
                     .build();
 
             var focusTime = Importance.builder().
                     degree(4).
+                    weight(0.2).
                     name(Thing.FOCUS_TIME).member(this)
                     .build();
             var distance = Importance.builder().
-                    degree(3).name(Thing.DISTANCE).member(this)
+                    degree(3).name(Thing.DISTANCE).weight(0.2).member(this)
                     .build();
-            var priority = Importance.builder().degree(2).member(this)
+            var priority = Importance.builder().degree(2).weight(0.2).member(this)
                     .name(Thing.PRIORITY).build();
-            var deadline = Importance.builder().degree(1).member(this)
+            var deadline = Importance.builder().degree(1).weight(0.2).member(this)
                     .name(Thing.DEADLINE).build();
 
             this.importanceList.add(focusTime);

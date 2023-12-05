@@ -29,9 +29,11 @@ public class Importance {
     private Member member;
 
     @Builder
-    public Importance(Thing name, Integer degree, Member member){
+    public Importance(Thing name, Integer degree,Double weight, Member member){
         this.name = name;
         this.degree = degree;
         this.member = member;
+        this.weight = weight;
     }
+
 }

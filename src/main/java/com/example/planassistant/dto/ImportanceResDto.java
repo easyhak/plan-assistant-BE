@@ -18,11 +18,13 @@ public class ImportanceResDto {
 
     @Schema(description = "정도", example = "3")
     private Integer degree;
-
+    @Schema(description = "가중치", example = "0.2")
+    private Double weight;
     @Builder
-    public ImportanceResDto(Long id, Thing name, Integer degree){
+    public ImportanceResDto(Long id, Thing name, Integer degree, Double weight){
         this.id = id;
         this.name = name;
         this.degree = degree;
+        this.weight = weight;
     }
 }
