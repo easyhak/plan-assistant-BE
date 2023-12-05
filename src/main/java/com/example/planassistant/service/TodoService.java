@@ -29,7 +29,6 @@ public class TodoService {
         var member = memberRepository.findById(memberId)
                 .orElseThrow(()->new NoSuchElementException("cannot find member"));
 
-        System.out.println(todoReqDto.toString());
         var todo = Todo.builder()
                 .priority(todoReqDto.getPriority())
                 .place(todoReqDto.getPlace())
@@ -47,6 +46,7 @@ public class TodoService {
     // 멤버의 모든 todo 가져오기 or complete 값에 따라 가져오기
     @Transactional(readOnly = true)
     public List<TodoResDto> getAllTodo(String memberId, Boolean complete){
+
         var member = memberRepository.findById(memberId)
                 .orElseThrow(()-> new NoSuchElementException("cannot find member"));
         List<Todo> todos;
@@ -64,7 +64,7 @@ public class TodoService {
             // category 없는 경우 디폴트 설정 추가
             if (x.getCategory() == null || x.getCategory().equals("")){
                 var resTodoDto = new TodoResDto(x);
-                resTodoDto.setExpectTime(1.0);
+                resTodoDto.setExpectTime(60.0);
                 todoResDtoList.add(resTodoDto);
             }
             // category 있는 expectTime 값을 가져오기
@@ -75,10 +75,12 @@ public class TodoService {
                 var todoDto =new TodoResDto(x);
                 todoDto.setCategory(category.getName());
                 if (category.getExpectTime() == null || category.getExpectTime() == 0){
-                    todoDto.setExpectTime(1.0);
+                    todoDto.setExpectTime(60.0);
                 }
                 else{
-                    todoDto.setExpectTime(category.getExpectTime());
+
+                    var expectTime = (Math.round(category.getExpectTime() / 10.0) * 10);
+                    todoDto.setExpectTime((double) expectTime);
 
                 }
                 todoResDtoList.add(todoDto);
