@@ -63,7 +63,9 @@ public class TodoService {
 
             // category 없는 경우 디폴트 설정 추가
             if (x.getCategory() == null || x.getCategory().equals("")){
-                todoResDtoList.add(new TodoResDto(x));
+                var resTodoDto = new TodoResDto(x);
+                resTodoDto.setExpectTime(1.0);
+                todoResDtoList.add(resTodoDto);
             }
             // category 있는 expectTime 값을 가져오기
 
@@ -72,7 +74,13 @@ public class TodoService {
                         .orElseThrow(()->new NoSuchElementException("cannot find category"));
                 var todoDto =new TodoResDto(x);
                 todoDto.setCategory(category.getName());
-                todoDto.setExpectTime(category.getExpectTime());
+                if (category.getExpectTime() == null || category.getExpectTime() == 0){
+                    todoDto.setExpectTime(1.0);
+                }
+                else{
+                    todoDto.setExpectTime(category.getExpectTime());
+
+                }
                 todoResDtoList.add(todoDto);
             }
 
