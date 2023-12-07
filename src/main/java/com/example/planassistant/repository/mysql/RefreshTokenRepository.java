@@ -1,4 +1,4 @@
-package com.example.planassistant.repository;
+package com.example.planassistant.repository.mysql;
 
 import com.example.planassistant.domain.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;

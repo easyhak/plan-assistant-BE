@@ -1,11 +1,13 @@
 package com.example.planassistant.service;
 
+import com.example.planassistant.domain.Recommend;
 import com.example.planassistant.domain.RecommendTodo;
 import com.example.planassistant.dto.RecommendTodoReqDto;
 import com.example.planassistant.dto.RecommendTodoResDto;
-import com.example.planassistant.repository.MemberRepository;
-import com.example.planassistant.repository.RecommendTodoRepository;
-import com.example.planassistant.repository.TodoRepository;
+import com.example.planassistant.repository.mongodb.RecommendTableRepository;
+import com.example.planassistant.repository.mysql.MemberRepository;
+import com.example.planassistant.repository.mysql.RecommendTodoRepository;
+import com.example.planassistant.repository.mysql.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -26,6 +29,8 @@ public class RecommendTodoService {
     private final RecommendTodoRepository recommendTodoRepository;
     private final TodoRepository todoRepository;
     private final MemberRepository memberRepository;
+    // mongodb
+    private final RecommendTableRepository recommendTableRepository;
     @Transactional
     public void createRecommendTodos(String memberId, List<RecommendTodoReqDto> dtoList) {
         List<RecommendTodo> recommendTodos = new ArrayList<>();
@@ -94,5 +99,34 @@ public class RecommendTodoService {
     public String deleteRecommendTodo(Long id) {
         recommendTodoRepository.deleteById(id);
         return "success";  // 삭제 성공 시 응답 메시지 반환 필요. 예시로 "success"
+    }
+
+    // 임시 recommend 저장
+    public void saveRecommend(String memberId, Object recommend) {
+        var recommendTable = recommendTableRepository.findRecommendByMemberId(memberId).orElse(null);
+        System.out.println(Objects.requireNonNull(recommendTable).toString());
+        if (recommendTable != null){
+            // null이 아니면 삭제
+            recommendTableRepository.deleteRecommendByMemberId(memberId);
+            log.info("delete recommend");
+        }
+        var x =  new Recommend(memberId, recommend);
+        log.info(x.toString());
+        recommendTableRepository.save(x);
+        log.info("save recommend");
+    }
+
+    // 임시 recommend 가져오기
+    public Recommend getRecommend(String userId) {
+        return recommendTableRepository.findRecommendByMemberId(userId).orElseThrow(
+                () -> new NoSuchElementException("recommend not exist")
+        );
+    }
+
+    public void deleteRecommend(String userId) {
+        var x = recommendTableRepository.findRecommendByMemberId(userId).orElseThrow(
+                () -> new NoSuchElementException("recommend not exist")
+        );
+        recommendTableRepository.deleteRecommendByMemberId(userId);
     }
 }

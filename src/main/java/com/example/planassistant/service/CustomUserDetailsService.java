@@ -1,7 +1,7 @@
 package com.example.planassistant.service;
 
 import com.example.planassistant.domain.Member;
-import com.example.planassistant.repository.MemberRepository;
+import com.example.planassistant.repository.mysql.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

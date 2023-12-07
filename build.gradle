@@ -43,6 +43,9 @@ dependencies {
 
     // swagger
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.0")
+
+    // mongodb
+    implementation ('org.springframework.boot:spring-boot-starter-data-mongodb')
 }
 
 tasks.named('test') {
@@ -58,3 +61,5 @@ bootJar{
 jar {
     enabled = false
 }
+
+

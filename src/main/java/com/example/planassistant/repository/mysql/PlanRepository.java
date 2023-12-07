@@ -1,4 +1,4 @@
-package com.example.planassistant.repository;
+package com.example.planassistant.repository.mysql;
 
 import com.example.planassistant.domain.Member;
 import com.example.planassistant.domain.Plan;

@@ -1,6 +1,7 @@
 package com.example.planassistant.controller;
 
 import com.example.planassistant.common.CommonController;
+import com.example.planassistant.domain.Recommend;
 import com.example.planassistant.dto.RecommendTodoReqDto;
 import com.example.planassistant.dto.RecommendTodoResDto;
 import com.example.planassistant.service.RecommendTodoService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,7 +25,6 @@ import java.util.List;
 @Tag(name = "Recommend Todo", description = "추천된 todo 관련 API")
 public class RecommendTodoController extends CommonController {
     private final RecommendTodoService recommendTodoService;
-
 
     @Operation(summary = "recommendTodo를 저장 또는 갱신합니다.", description = "recommendTodos 저장" +
             "list로 된 형태, 필요한 정보: id: {todo_id}, endTime: {yyyy-mm-dd HH:mm}, startTime: {yyyy-mm-dd}")
@@ -44,4 +45,24 @@ public class RecommendTodoController extends CommonController {
         return OkReturn(recommendTodoService.getRecommendTodosByDate(user.getUsername(), localDate));
     }
 
+
+    @Operation(summary = "recommend 임시 테이블 저장", description = "recommend 값을 저장")
+    @PostMapping("/table")
+    public ResponseEntity<Recommend> saveRecommendTable(@AuthenticationPrincipal User user, @RequestBody Object recommend) {
+
+        recommendTodoService.saveRecommend(user.getUsername(), recommend);
+        return CreatedReturn("created");
+    }
+
+    @Operation(summary = "recommend 임시 테이블 저장", description = "recommend 값을 보여줌")
+    @GetMapping("/table")
+    public ResponseEntity<Recommend> getRecommendTable(@AuthenticationPrincipal User user) {
+        return OkReturn(recommendTodoService.getRecommend(user.getUsername()));
+    }
+
+    @DeleteMapping("/table")
+    public ResponseEntity deleteRecommendTable(@AuthenticationPrincipal User user) {
+        recommendTodoService.deleteRecommend(user.getUsername());
+        return AcceptedReturn("deleted");
+    }
 }
