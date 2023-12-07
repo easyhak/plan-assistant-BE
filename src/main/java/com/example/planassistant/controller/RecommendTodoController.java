@@ -49,14 +49,17 @@ public class RecommendTodoController extends CommonController {
     @Operation(summary = "recommend 임시 테이블 저장", description = "recommend 값을 저장")
     @PostMapping("/table")
     public ResponseEntity<Recommend> saveRecommendTable(@AuthenticationPrincipal User user, @RequestBody Object recommend) {
-
+        log.info("saveRecommendTable call");
+        log.info(user.getUsername());
+        System.out.println(recommend.toString());
         recommendTodoService.saveRecommend(user.getUsername(), recommend);
         return CreatedReturn("created");
     }
 
-    @Operation(summary = "recommend 임시 테이블 저장", description = "recommend 값을 보여줌")
+    @Operation(summary = "recommend 임시 테이블 가져옴", description = "recommend 값을 보여줌")
     @GetMapping("/table")
     public ResponseEntity<Recommend> getRecommendTable(@AuthenticationPrincipal User user) {
+        log.info("getRecommendTable call");
         return OkReturn(recommendTodoService.getRecommend(user.getUsername()));
     }
 
