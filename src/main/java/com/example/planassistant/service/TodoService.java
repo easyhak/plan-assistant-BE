@@ -134,6 +134,8 @@ public class TodoService {
         todo.setContent(todoReqDto.getContent());
         todo.setLatitude(todoReqDto.getLatitude());
         todo.setDeadline(todoReqDto.getDeadline());
+        todo.setPriority(todoReqDto.getPriority());
+
         // 장소 값은 받은 값이 다른 경우에만 수정하도록 하기
         if (!todoReqDto.getPlace().equals(todo.getPlace())){
             todo.setPlace(todoReqDto.getPlace());
