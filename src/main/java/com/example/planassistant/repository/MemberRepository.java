@@ -1,4 +1,4 @@
-package com.example.planassistant.repository.mysql;
+package com.example.planassistant.repository;
 
 import com.example.planassistant.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;

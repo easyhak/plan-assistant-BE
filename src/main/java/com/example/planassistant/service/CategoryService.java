@@ -2,8 +2,8 @@ package com.example.planassistant.service;
 
 import com.example.planassistant.domain.Category;
 import com.example.planassistant.dto.CategoryReqDto;
-import com.example.planassistant.repository.mysql.CategoryRepository;
-import com.example.planassistant.repository.mysql.MemberRepository;
+import com.example.planassistant.repository.CategoryRepository;
+import com.example.planassistant.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

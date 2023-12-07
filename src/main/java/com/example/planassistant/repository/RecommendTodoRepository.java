@@ -1,4 +1,4 @@
-package com.example.planassistant.repository.mysql;
+package com.example.planassistant.repository;
 
 import com.example.planassistant.domain.RecommendTodo;
 import com.example.planassistant.domain.Todo;

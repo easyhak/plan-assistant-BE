@@ -1,7 +1,6 @@
 package com.example.planassistant.controller;
 
 import com.example.planassistant.common.CommonController;
-import com.example.planassistant.domain.Recommend;
 import com.example.planassistant.dto.RecommendTodoReqDto;
 import com.example.planassistant.dto.RecommendTodoResDto;
 import com.example.planassistant.service.RecommendTodoService;
@@ -45,26 +44,5 @@ public class RecommendTodoController extends CommonController {
     }
 
 
-    @Operation(summary = "recommend 임시 테이블 저장", description = "recommend 값을 저장")
-    @PostMapping("/table")
-    public ResponseEntity<Recommend> saveRecommendTable(@AuthenticationPrincipal User user, @RequestBody Object recommend) {
-        log.info("saveRecommendTable call");
-        log.info(user.getUsername());
-        recommendTodoService.saveRecommend(user.getUsername(), recommend);
-        return CreatedReturn("created");
-    }
 
-    @Operation(summary = "recommend 임시 테이블 가져옴", description = "recommend 값을 보여줌")
-    @GetMapping("/table")
-    public ResponseEntity<Recommend> getRecommendTable(@AuthenticationPrincipal User user) {
-        log.info("getRecommendTable call");
-        return OkReturn(recommendTodoService.getRecommend(user.getUsername()));
-    }
-
-    @DeleteMapping("/table")
-    public ResponseEntity deleteRecommendTable(@AuthenticationPrincipal User user) {
-        log.info("deleteRecommendTable Call");
-        recommendTodoService.deleteRecommend(user.getUsername());
-        return AcceptedReturn("deleted");
-    }
 }
