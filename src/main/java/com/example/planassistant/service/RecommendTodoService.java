@@ -120,9 +120,7 @@ public class RecommendTodoService {
     // 임시 recommend 가져오기
     @Transactional(readOnly = true)
     public Recommend getRecommend(String userId) {
-        return recommendTableRepository.findRecommendByMemberId(userId).orElseThrow(
-                () -> new NoSuchElementException("recommend not exist")
-        );
+        return recommendTableRepository.findRecommendByMemberId(userId).orElse(null); // 없으면 null 반환 가능. 없으면 예외 발생. 있으면 응�
     }
 
     @Transactional
