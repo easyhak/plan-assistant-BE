@@ -21,6 +21,13 @@ public class ImportanceService {
                 ()-> new NoSuchElementException("no such element")
             );
         importance.setDegree(degree);
+        switch (degree) {
+            case 1 -> importance.setWeight(0.1);
+            case 2 -> importance.setWeight(0.15);
+            case 3 -> importance.setWeight(0.2);
+            case 4 -> importance.setWeight(0.25);
+            case 5 -> importance.setWeight(0.3);
+        }
     }
 
 
