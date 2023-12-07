@@ -73,7 +73,9 @@ public class TodoController extends CommonController {
     @Operation(summary = "Change todo by id", description = "todo의 내용을 수정합니다")
     @PutMapping("/{id}")
     public ResponseEntity changeTodo(@PathVariable Long id, @RequestBody TodoReqDto todoReqDto){
+        log.info("changeTodo call");
         log.info(todoReqDto.toString());
+        System.out.println(todoReqDto.toString());
         return AcceptedReturn(todoService.changeTodo(id, todoReqDto));
     }
 
