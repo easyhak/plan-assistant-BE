@@ -103,10 +103,10 @@ public class RecommendTodoService {
     // 임시 recommend 저장
     @Transactional
     public void saveRecommend(String memberId, Object recommend) {
-        var recommendTable = recommendTableRepository.findRecommendByMemberId(memberId).orElse(null);
+        var recommendTable = recommendTableRepository.findRecommendByMemberId(memberId);
         System.out.println(recommendTable);
-        if (recommendTable != null){
-            // null이 아니면 삭제
+        if (!recommendTable.isEmpty()){
+            // null이 아니면 삭제, 빈 배열이 아니면 여러개 삭제
             log.info("recommend table is not null");
             recommendTableRepository.deleteRecommendByMemberId(memberId);
             log.info("delete recommend");
@@ -119,15 +119,17 @@ public class RecommendTodoService {
 
     // 임시 recommend 가져오기
     @Transactional(readOnly = true)
-    public Recommend getRecommend(String userId) {
-        return recommendTableRepository.findRecommendByMemberId(userId).orElse(null); // 없으면 null 반환 가능. 없으면 예외 발생. 있으면 응�
+    public List<Recommend> getRecommend(String userId) {
+        return recommendTableRepository.findRecommendByMemberId(userId); // 없으면 null 반환 가능. 없으면 예외 발생. 있으면 응�
     }
 
     @Transactional
     public void deleteRecommend(String userId) {
-        var x = recommendTableRepository.findRecommendByMemberId(userId).orElseThrow(
-                () -> new NoSuchElementException("recommend not exist")
+        var x = recommendTableRepository.findRecommendByMemberId(userId);
+        x.forEach(memberId -> {
+            recommendTableRepository.deleteRecommendByMemberId(userId);
+            }
         );
-        recommendTableRepository.deleteRecommendByMemberId(userId);
+
     }
 }
