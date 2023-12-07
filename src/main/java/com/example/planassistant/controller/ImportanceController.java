@@ -64,7 +64,7 @@ public class ImportanceController extends CommonController {
             "}")
     @PutMapping("/weight")
     public ResponseEntity updateWeight(@AuthenticationPrincipal User user, @RequestBody Map<Thing, Double> req){
-        System.out.println(req.toString());
+        log.info("updateWeight Call");
         importanceService.updateWeight(user.getUsername(), req);
         return AcceptedReturn("updated");
     }

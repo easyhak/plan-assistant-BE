@@ -114,8 +114,8 @@ public class PlanService {
         var nowDate = LocalDate.now().plusDays(1);
         var startDateTime = nowDate.atStartOfDay();
         var plusDateTime = LocalDate.now().plusDays(addDate).atTime(LocalTime.MAX);
-        System.out.println(startDateTime);
-        System.out.println(plusDateTime);
+//        System.out.println(startDateTime);
+//        System.out.println(plusDateTime);
         var plans = planRepository.findPlanByMemberAndStartTimeBetweenOrderByStartTime(member, startDateTime, plusDateTime);
         List<PlanResDto> planResDtoList = new ArrayList<>();
         for(var x: plans){

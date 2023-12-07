@@ -47,7 +47,8 @@ public class TodoController extends CommonController {
             @Content(array = @ArraySchema(schema = @Schema(implementation = TodoResDto.class)))
     })
     public ResponseEntity getAllTodo(@AuthenticationPrincipal User user, @RequestParam(required = false) Boolean complete){
-        System.out.println(complete);
+        log.info("getAllTodo Call");
+//        System.out.println(complete);
         var res = todoService.getAllTodo((user.getUsername()), complete);
         return OkReturn(res);
     }
@@ -75,7 +76,6 @@ public class TodoController extends CommonController {
     public ResponseEntity changeTodo(@PathVariable Long id, @RequestBody TodoReqDto todoReqDto){
         log.info("changeTodo call");
         log.info(todoReqDto.toString());
-        System.out.println(todoReqDto.toString());
         return AcceptedReturn(todoService.changeTodo(id, todoReqDto));
     }
 
