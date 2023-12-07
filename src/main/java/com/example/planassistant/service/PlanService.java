@@ -60,7 +60,7 @@ public class PlanService {
         var member = memberRepository.findById(memberId).orElseThrow(
                 ()->new NoSuchElementException("member not found")
         );
-        var plans = planRepository.findPlanByMemberOrderByStartTime(member);
+        var plans = planRepository.findPlanByMemberOrderByStartTimeDesc(member);
         List<PlanResDto> planResDtoList = new ArrayList<>();
         for(Plan x: plans){
             planResDtoList.add(new PlanResDto(x));

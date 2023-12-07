@@ -10,9 +10,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface PlanRepository extends JpaRepository<Plan, Long> {
-    List<Plan> findPlanByMemberOrderByStartTime(Member member);
+    List<Plan> findPlanByMemberOrderByStartTimeDesc(Member member);
 
     List<Plan> findPlanByMemberAndStartTimeBetweenOrderByStartTime(Member member, LocalDateTime start, LocalDateTime end);
+
 
     List<Plan> findPlanByMemberAndStartTimeBetween(Member member, LocalDateTime start, LocalDateTime end);
 
