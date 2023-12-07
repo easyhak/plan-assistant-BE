@@ -113,7 +113,7 @@ public class PlanService {
                 .orElseThrow(()-> new NoSuchElementException("member not fount"));
         var nowDate = LocalDate.now().plusDays(1);
         var startDateTime = nowDate.atStartOfDay();
-        var plusDateTime = LocalDate.now().plusDays(addDate + 1).atTime(LocalTime.MAX);
+        var plusDateTime = LocalDate.now().plusDays(addDate).atTime(LocalTime.MAX);
         System.out.println(startDateTime);
         System.out.println(plusDateTime);
         var plans = planRepository.findPlanByMemberAndStartTimeBetweenOrderByStartTime(member, startDateTime, plusDateTime);
