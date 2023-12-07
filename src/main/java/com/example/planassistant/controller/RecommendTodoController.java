@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -51,7 +50,6 @@ public class RecommendTodoController extends CommonController {
     public ResponseEntity<Recommend> saveRecommendTable(@AuthenticationPrincipal User user, @RequestBody Object recommend) {
         log.info("saveRecommendTable call");
         log.info(user.getUsername());
-        System.out.println(recommend.toString());
         recommendTodoService.saveRecommend(user.getUsername(), recommend);
         return CreatedReturn("created");
     }
@@ -65,6 +63,7 @@ public class RecommendTodoController extends CommonController {
 
     @DeleteMapping("/table")
     public ResponseEntity deleteRecommendTable(@AuthenticationPrincipal User user) {
+        log.info("deleteRecommendTable Call");
         recommendTodoService.deleteRecommend(user.getUsername());
         return AcceptedReturn("deleted");
     }

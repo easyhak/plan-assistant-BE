@@ -20,7 +20,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
 @Service
 @Slf4j
@@ -102,11 +101,13 @@ public class RecommendTodoService {
     }
 
     // 임시 recommend 저장
+    @Transactional
     public void saveRecommend(String memberId, Object recommend) {
         var recommendTable = recommendTableRepository.findRecommendByMemberId(memberId).orElse(null);
-        System.out.println(Objects.requireNonNull(recommendTable).toString());
+        System.out.println(recommendTable);
         if (recommendTable != null){
             // null이 아니면 삭제
+            log.info("recommend table is not null");
             recommendTableRepository.deleteRecommendByMemberId(memberId);
             log.info("delete recommend");
         }
@@ -117,12 +118,14 @@ public class RecommendTodoService {
     }
 
     // 임시 recommend 가져오기
+    @Transactional(readOnly = true)
     public Recommend getRecommend(String userId) {
         return recommendTableRepository.findRecommendByMemberId(userId).orElseThrow(
                 () -> new NoSuchElementException("recommend not exist")
         );
     }
 
+    @Transactional
     public void deleteRecommend(String userId) {
         var x = recommendTableRepository.findRecommendByMemberId(userId).orElseThrow(
                 () -> new NoSuchElementException("recommend not exist")
