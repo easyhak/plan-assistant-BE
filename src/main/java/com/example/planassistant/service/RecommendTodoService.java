@@ -1,13 +1,12 @@
 package com.example.planassistant.service;
 
-import com.example.planassistant.domain.Recommend;
 import com.example.planassistant.domain.RecommendTodo;
 import com.example.planassistant.dto.RecommendTodoReqDto;
 import com.example.planassistant.dto.RecommendTodoResDto;
-import com.example.planassistant.repository.mongodb.RecommendTableRepository;
-import com.example.planassistant.repository.mysql.MemberRepository;
-import com.example.planassistant.repository.mysql.RecommendTodoRepository;
-import com.example.planassistant.repository.mysql.TodoRepository;
+
+import com.example.planassistant.repository.MemberRepository;
+import com.example.planassistant.repository.RecommendTodoRepository;
+import com.example.planassistant.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,7 +28,6 @@ public class RecommendTodoService {
     private final TodoRepository todoRepository;
     private final MemberRepository memberRepository;
     // mongodb
-    private final RecommendTableRepository recommendTableRepository;
     @Transactional
     public void createRecommendTodos(String memberId, List<RecommendTodoReqDto> dtoList) {
         List<RecommendTodo> recommendTodos = new ArrayList<>();
@@ -100,34 +98,5 @@ public class RecommendTodoService {
         return "success";  // 삭제 성공 시 응답 메시지 반환 필요. 예시로 "success"
     }
 
-    // 임시 recommend 저장
-    @Transactional
-    public void saveRecommend(String memberId, Object recommend) {
-        var recommendTable = recommendTableRepository.findRecommendByMemberId(memberId).orElse(null);
-        System.out.println(recommendTable);
-        if (recommendTable != null){
-            // null이 아니면 삭제
-            log.info("recommend table is not null");
-            recommendTableRepository.deleteRecommendByMemberId(memberId);
-            log.info("delete recommend");
-        }
-        var x =  new Recommend(memberId, recommend);
-        log.info(x.toString());
-        recommendTableRepository.save(x);
-        log.info("save recommend");
-    }
 
-    // 임시 recommend 가져오기
-    @Transactional(readOnly = true)
-    public Recommend getRecommend(String userId) {
-        return recommendTableRepository.findRecommendByMemberId(userId).orElse(null); // 없으면 null 반환 가능. 없으면 예외 발생. 있으면 응�
-    }
-
-    @Transactional
-    public void deleteRecommend(String userId) {
-        var x = recommendTableRepository.findRecommendByMemberId(userId).orElseThrow(
-                () -> new NoSuchElementException("recommend not exist")
-        );
-        recommendTableRepository.deleteRecommendByMemberId(userId);
-    }
 }
