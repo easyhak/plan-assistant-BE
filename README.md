@@ -1,9 +1,9 @@
-# smart calander assistant BE
+# 📅 Plan Assistant BE
 
-## Project Period
+## ⏰ Project Period
 2023-10-09 ~ 2023-12-09
 
-## Stack
+## 🛠 Stack
 - SpringBoot
   - spring security
   - spring data JPA
