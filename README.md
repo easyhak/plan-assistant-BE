@@ -1,29 +1,16 @@
-# Getting Started
+# smart calander assistant BE
 
-### Reference Documentation
+## Stack
+- SpringBoot
+  - spring security
+  - spring data JPA
+  - spring doc open api (swagger)
+- MySQL
+- CodeDeploy, Github Action
+- Serverless Framework, API gateway, AWS Lambda
 
-For further reference, please consider the following sections:
+## Detailed project description
+<a href="https://github.com/smart-calander-assistant/BE/files/13630155/23_2.7.pptx">캡스톤 디자인 최종발표 PPTX</a>
 
-* [Official Gradle documentation](https://docs.gradle.org)
-* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.1.4/gradle-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.1.4/gradle-plugin/reference/html/#build-image)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/3.1.4/reference/htmlsingle/index.html#using.devtools)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/3.1.4/reference/htmlsingle/index.html#data.sql.jpa-and-spring-data)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/3.1.4/reference/htmlsingle/index.html#web)
-
-### Guides
-
-The following guides illustrate how to use some features concretely:
-
-* [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
-
-### Additional Links
-
-These additional references should also help you:
-
-* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
-
+## System Architecture
+![image](https://github.com/smart-calander-assistant/BE/assets/48908552/579ff9f9-7f9c-4adb-b598-5170da1201e0)
